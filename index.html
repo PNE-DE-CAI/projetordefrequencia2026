@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJEHT4H5MR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LJEHT4H5MR');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URE Caieiras 2026 - Projetor de Frequência Escolar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .sed-gradient {
+            background: linear-gradient(135deg, #005CA9 0%, #CC0000 100%);
+        }
+        
+        .sed-blue {
+            background-color: #005CA9;
+        }
+        
+        .sed-red {
+            background-color: #CC0000;
+        }
+        
+        .sed-dark-blue {
+            background-color: #003366;
+        }
+        
+        .sed-yellow {
+            background-color: #FFD100;
+        }
+        
+        .sed-light-blue {
+            background-color: #E6F2FF;
+        }
+        
+        .sed-light-red {
+            background-color: #FFE6E6;
+        }
+        
+        .text-red-important {
+            color: #CC0000;
+        }
+        
+        .border-red-important {
+            border-color: #CC0000;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .tooltip .tooltiptext {
+                width: 200px;
+                margin-left: -100px;
+            }
+        }
+
+        /* Estilo para a caixa de mensagem personalizada */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #005CA9;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            text-align: center;
+        }
+
+        .message-box button {
+            background-color: #005CA9;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+        
+        /* Indicador de ano */
+        .year-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #CC0000;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .ifa-badge {
+            display: inline-block;
+            background-color: #FFD100;
+            color: #003366;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Caixa de mensagem personalizada, inicialmente oculta -->
+    <div id="messageBox" class="hidden message-box">
+        <p id="messageText"></p>
+        <button onclick="hideMessageBox()">OK</button>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="sed-gradient text-white shadow-lg relative">
+        <div class="year-badge">2026</div>
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://i.ibb.co/dscRg9Ms/LOGO-URE-CAIEIRAS-2-1.png" alt="Logo URE-CAIEIRAS" class="h-16 mr-4">
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold">Unidade Regional de Ensino de Caieiras</h1>
+                        <p class="text-sm md:text-base">Secretaria da Educação do Estado de São Paulo</p>
+                    </div>
+                </div>
+                <nav class="flex space-x-4">
+                    <a href="#" class="hover:text-yellow-300 transition"><i class="fas fa-home mr-1"></i> Início</a>
+                    <a href="index1.html" class="hover:text-yellow-300 transition"><i class="fas fa-info-circle mr-1"></i> Mapeamento de ação Resolução 39</a>
+                    <a href="index2.html" class="hover:text-yellow-300 transition"><i class="fas fa-check mr-1"></i> Mapeamento de Alunos Faltosos</a>
+                    <a href="#" class="hover:text-yellow-300 transition"><i class="fas fa-envelope mr-1"></i> Contato</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Banner -->
+            <div class="sed-blue text-white p-6 relative">
+                <div class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-md text-sm font-bold">2026</div>
+                <h2 class="text-2xl font-bold mb-2">Projetor de Frequência Escolar 2026</h2>
+                <p class="text-sm">Ferramenta para cálculo da frequência necessária para alcançar a meta anual de IFA das escolas.</p>
+                <p class="text-sm">META GLOBAL DE REFERÊNCIA PARA O IFA É DE <span class="font-bold text-yellow-300">85%</span> PARA AS NOSSOS ESCOLAS.</p>
+            </div>
+            
+            <div class="p-6">
+                <!-- Calculadora -->
+                <div class="max-w-2xl mx-auto">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Calculadora de Projeção 2026</h3>
+                        
+                        <!-- Novo Campo: Seleção de Perfil da Unidade -->
+                        <div class="mb-4">
+                            <label for="perfilUnidadeSelect" class="block text-sm font-medium text-gray-700 mb-1">
+                                Perfil da Unidade Escolar:
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-red-600 ml-1"></i>
+                                    <span class="tooltiptext">Selecione o perfil da sua unidade escolar para ajustar o cálculo às semanas específicas do seu calendário letivo e meta de IFA correspondente.</span>
+                                </span>
+                            </label>
+                            <select id="perfilUnidadeSelect" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600 bg-white">
+                                <option value="regular" selected>Unidade Regular (Tempo Parcial)</option>
+                                <option value="pei7h">PEI de 7 horas</option>
+                                <option value="pei9h">PEI de 9 horas</option>
+                                <option value="regularAnosFinais">Unidade Regular com Anos Iniciais</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Campo para o número de semanas passadas -->
+                        <div class="mb-4">
+                            <label for="semanasPassadasInput" class="block text-sm font-medium text-gray-700 mb-1">
+                                Número de Semanas Passadas:
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-red-600 ml-1"></i>
+                                    <span class="tooltiptext">Insira o número de semanas já transcorridas do ano letivo (por exemplo, 05).</span>
+                                </span>
+                            </label>
+                            <input type="number" id="semanasPassadasInput" placeholder="Ex: 05" value="05" step="1"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                        </div>
+
+                        <!-- Campo para a média de frequência acumulada -->
+                        <div class="mb-4">
+                            <label for="mediaAcumuladaInput" class="block text-sm font-medium text-gray-700 mb-1">
+                                Média de Frequência Acumulada (%):
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-red-600 ml-1"></i>
+                                    <span class="tooltiptext">A partir da sua <span class="font-bold text-red-700">5° semana</span>, insira a média de frequência percentual acumulada até a semana mais recente.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="mediaAcumuladaInput" placeholder="Ex: 85.0" step="0.1"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                        </div>
+                        
+                        <!-- NOVO CAMPO: IFA da Escola (agora com valor padrão baseado no perfil) -->
+                        <div class="mb-4">
+                            <label for="ifaEscolaInput" class="block text-sm font-medium text-gray-700 mb-1">
+                                IFA da Escola (%):
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-red-600 ml-1"></i>
+                                    <span class="tooltiptext">(SED) ACESSO >> <b>Início
+Recursos Humanos
+Bonificação por Resultados
+Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
+                                </span>
+                                <span id="ifaPadraoInfo" class="text-sm text-green-600 font-medium ml-2">
+                                    <i class="fas fa-info-circle"></i> Meta padrão: 85.0%
+                                </span>
+                            </label>
+                            <input type="number" id="ifaEscolaInput" placeholder="Ex: 85.0" step="0.1" value="85.0"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                        </div>
+
+                        <button onclick="calcularProjecao()" 
+                                class="w-full bg-gradient-to-r from-blue-600 to-red-700 text-white py-3 px-4 rounded-md hover:from-blue-700 hover:to-red-800 transition duration-300 font-medium">
+                            <i class="fas fa-calculator mr-2"></i> Calcular Projeção 2026
+                        </button>
+                        <div id="resultado" class="mt-6 p-4 sed-light-red border-2 border-red-600 rounded-md text-center text-lg font-semibold">
+                            <div class="text-red-700 font-bold mb-2"><i class="fas fa-chart-line mr-2"></i> PROJEÇÃO 2026</div>
+                            A média para as próximas semanas não podera ser inferior a: --
+                        </div>
+                    </div>
+                    
+                    <!-- Explicação atualizada dinamicamente -->
+                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-600 text-white p-2 rounded-md mr-3">
+                                <i class="fas fa-school"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-800">Perfil Selecionado: <span id="perfilNome" class="text-red-700">Unidade Regular (Tempo Parcial)</span></h3>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    Meta de IFA padrão: <span id="ifaPadraoValor" class="font-bold text-green-700">85.0%</span>
+                                    <span class="tooltip ml-1">
+                                        <i class="fas fa-info-circle text-blue-500"></i>
+                                        <span class="tooltiptext">Esta é a meta padrão para este perfil. Você pode ajustar manualmente no campo acima se sua escola tiver uma meta específica diferente.</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div id="perfilDescricao" class="mb-4 p-3 bg-red-50 border-l-4 border-red-600 rounded">
+                            <p class="text-gray-700"><i class="fas fa-info-circle text-red-600 mr-2"></i>Calendário padrão com 45 semanas letivas para análise do Escola Total. Meta de IFA: 85.0%</p>
+                        </div>
+                        
+                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Entendendo a Meta de Frequência para o Ano Letivo 2026</h3>
+                        <p class="text-gray-700 mb-4">
+                            Prezados gestores,<br>
+                            O cálculo abaixo é uma ferramenta essencial para o nosso trabalho de prevenção à evasão escolar, como destaca a Resolução SEDUC 39/2023. Manter a frequência dos alunos é uma de nossas prioridades e, para isso, é fundamental que a equipe gestora entenda como e por why chegamos à meta de frequência necessária para as próximas semanas. Para o ano de <span class="font-bold text-red-700">2026</span>, levamos em consideração <span id="totalSemanasInfo">45 semanas</span> em que são consideradas da 5° semana até a 45° semana, assim projetando uma frequência mínima esperada para a meta de <i>IFA</i> da escola.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <!-- 1. Meta Total -->
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="bg-gradient-to-r from-blue-600 to-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">1</div>
+                                    <h4 class="text-lg font-medium text-slate-800">A Meta Total: Onde Queremos Chegar?</h4>
+                                </div>
+                                <div class="pl-11">
+                                    <p class="text-gray-700 mb-2">
+                                        Para o ano letivo de <span class="font-bold text-red-700">2026</span>, temos <span id="totalSemanasTexto">45 semanas</span> para análise no <span class="font-bold text-red-700">Escola Total</span>. Nossa meta de frequência média para todo o ano é de <span id="ifaEscolaValor1">85.0</span>%. Para saber o "total de frequência" que precisamos ter ao final do ano, multiplicamos a meta pelo número total de semanas:
+                                    </p>
+                                    <div class="bg-gradient-to-r from-blue-50 to-red-50 p-3 rounded-md border-l-4 border-red-600 mb-2">
+                                        <p class="font-mono text-blue-800"><span id="metaTotalCalc">--</span></p>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        Esse número, <span id="metaTotalValor">--</span>, representa a soma total de frequência que precisamos alcançar ao longo das <span id="totalSemanasValor">--</span> semanas. <span class="font-bold text-red-700">Ele é o nosso ponto de chegada.</span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 2. O Que Já Conquistamos -->
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="bg-gradient-to-r from-blue-600 to-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">2</div>
+                                    <h4 class="text-lg font-medium text-slate-800">O Que Já Conquistamos?</h4>
+                                </div>
+                                <div class="pl-11">
+                                    <p class="text-gray-700 mb-2">
+                                        Nas primeiras <span id="semanasPassadasValor">--</span> semanas, nossa escola obteve uma frequência média de <span id="mediaAcumuladaValor">--</span>%. Para saber o "total de frequência" que já acumulamos, multiplicamos a média alcançada pelo número de semanas passadas:
+                                    </p>
+                                    <div class="bg-gradient-to-r from-blue-50 to-red-50 p-3 rounded-md border-l-4 border-red-600 mb-2">
+                                        <p class="font-mono text-blue-800"><span id="conquistadoCalc">--</span></p>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        Este valor, <span id="conquistadoValor">--</span>, é o nosso progresso até agora.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 3. O Desafio -->
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="bg-gradient-to-r from-blue-600 to-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">3</div>
+                                    <h4 class="text-lg font-medium text-slate-800">O Desafio: Quanto Precisamos Conquistar nas Próximas Semanas?</h4>
+                                </div>
+                                <div class="pl-11">
+                                    <p class="text-gray-700 mb-2">
+                                        Agora, precisamos descobrir o que falta para atingir nossa meta. Para isso, subtraímos o que já conquistamos do nosso objetivo final:
+                                    </p>
+                                    <div class="bg-gradient-to-r from-blue-50 to-red-50 p-3 rounded-md border-l-4 border-red-600 mb-2">
+                                        <p class="font-mono text-blue-800"><span id="desafioCalc">--</span></p>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        O número <span id="desafioValor">--</span> é a soma de frequência que ainda precisamos acumular nas próximas <span id="semanasFuturasValor">--</span> semanas.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 4. A Estratégia -->
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <div class="bg-gradient-to-r from-blue-600 to-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">4</div>
+                                    <h4 class="text-lg font-medium text-slate-800">A Estratégia: Qual a Frequência Média Necessária?</h4>
+                                </div>
+                                <div class="pl-11">
+                                    <p class="text-gray-700 mb-2">
+                                        Por fim, para saber qual deve ser a nossa frequência média semanal para as últimas <span id="semanasRestantesValor">--</span> semanas, dividimos o que falta ser conquistado pelo número de semanas restantes:
+                                    </p>
+                                    <div class="bg-gradient-to-r from-blue-50 to-red-50 p-3 rounded-md border-l-4 border-red-600 mb-2">
+                                        <p class="font-mono text-blue-800"><span id="estrategiaCalc">--</span></p>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        Convertendo esse número para porcentagem, chegamos à nossa meta semanal: <span class="font-bold text-red-700" id="metaSemanalValor">--</span>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Conclusão atualizada -->
+                        <div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-red-50 border-l-4 border-red-600 rounded-md">
+                            <h4 class="font-semibold text-slate-800 mb-2"><i class="fas fa-bullseye text-red-600 mr-2"></i>Conclusão 2026:</h4>
+                            <p class="font-bold text-red-700">
+                                Para que nossa escola alcance o seu IFA de <span id="ifaEscolaValor2">85.0</span>%, precisaremos de uma frequência média de <span id="conclusaoMeta">--</span>% nas próximas <span id="conclusaoSemanasFuturas">--</span> semanas.
+                                <br><br>
+                                <span id="statusIFA"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gradient-to-r from-blue-900 to-gray-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">URE Caieiras 2026</h3>
+                    <p class="text-sm text-gray-300">
+                        Unidade Regional de Ensino de Caieiras<br>
+                        Secretaria da Educação do Estado de São Paulo<br>
+                        <span class="text-red-300 font-bold">Ano Letivo 2026</span>
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contato</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-phone-alt mr-2"></i>(11)4442-8605 </li>
+                        <li><i class="fas fa-envelope mr-2"></i> ure.caieiras@educacao.sp.gov.br</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> Endereço: Av. Prof. Carvalho Pinto, 159 - Centro, Caieiras/SP</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links Úteis</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.educacao.sp.gov.br/" class="text-gray-300 hover:text-red-300 transition"><i class="fas fa-external-link-alt mr-2"></i> SEDUC-SP</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-red-300 transition"><i class="fas fa-file-alt mr-2"></i> Resoluções</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-red-300 transition"><i class="fas fa-chalkboard-teacher mr-2"></i> Formações</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
+                <p>© 2026 Unidade Regional de Ensino de Caieiras. Todos os direitos reservados.</p>
+                <p class="mt-2 text-red-300">Ano Letivo 2026 - Calculadora de Projeção de Frequência</p>
+                <p class="mt-1 text-sm text-gray-500">Metas de IFA: Regular = 82% | PEI 7h = 90% | PEI 9h = 90.5% | Anos Finais = 82%</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configurações dos perfis com diferentes metas de IFA
+        const perfis = {
+            regular: {
+                nome: "Unidade Regular (Tempo Parcial)",
+                totalSemanas: 45,
+                ifaPadrao: 85.0,
+                descricao: "Calendário padrão com 45 semanas letivas para análise do Escola Total. Meta de IFA: 85.0%"
+            },
+            pei7h: {
+                nome: "PEI de 7 horas",
+                totalSemanas: 45,
+                ifaPadrao: 90.0,
+                descricao: "Programa de Ensino Integral de 7 horas com 45 semanas letivas para análise. Meta de IFA: 90.0%"
+            },
+            pei9h: {
+                nome: "PEI de 9 horas",
+                totalSemanas: 45,
+                ifaPadrao: 90.5,
+                descricao: "Programa de Ensino Integral de 9 horas com 45 semanas letivas para análise. Meta de IFA: 90.5%"
+            },
+            regularAnosFinais: {
+                nome: "Unidade Regular com Anos Finais",
+                totalSemanas: 45,
+                ifaPadrao: 85.5,
+                descricao: "Unidade regular com anos finais, totalizando 45 semanas letivas para análise. Meta de IFA: 85.5%"
+            }
+        };
+
+        // Função para atualizar o valor padrão do IFA quando o perfil é alterado
+        function atualizarIFAPadrao() {
+            const perfilSelecionado = document.getElementById('perfilUnidadeSelect').value;
+            const perfil = perfis[perfilSelecionado];
+            
+            // Atualiza o campo de IFA com o valor padrão do perfil
+            document.getElementById('ifaEscolaInput').value = perfil.ifaPadrao.toFixed(1);
+            
+            // Atualiza as informações na interface
+            document.getElementById('perfilNome').textContent = perfil.nome;
+            document.getElementById('ifaPadraoValor').textContent = perfil.ifaPadrao.toFixed(1) + '%';
+            document.getElementById('ifaPadraoInfo').innerHTML = 
+                `<i class="fas fa-info-circle"></i> Meta padrão: ${perfil.ifaPadrao.toFixed(1)}%`;
+            
+            document.getElementById('perfilDescricao').innerHTML = 
+                `<p class="text-gray-700"><i class="fas fa-info-circle text-red-600 mr-2"></i>${perfil.descricao}</p>`;
+            
+            document.getElementById('totalSemanasInfo').textContent = `${perfil.totalSemanas} semanas`;
+            document.getElementById('totalSemanasTexto').textContent = `${perfil.totalSemanas} semanas`;
+            
+            // Atualiza também os valores estáticos na explicação
+            document.getElementById('ifaEscolaValor1').innerText = perfil.ifaPadrao.toFixed(1);
+            document.getElementById('ifaEscolaValor2').innerText = perfil.ifaPadrao.toFixed(1);
+        }
+
+        // Atualizar informações do perfil selecionado quando o select é alterado
+        document.getElementById('perfilUnidadeSelect').addEventListener('change', atualizarIFAPadrao);
+
+        // Inicializar com perfil padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarIFAPadrao();
+        });
+
+        // Função para mostrar a caixa de mensagem personalizada
+        function showMessageBox(message) {
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
+            messageText.innerText = message;
+            messageBox.classList.remove('hidden');
+        }
+
+        // Função para esconder a caixa de mensagem
+        function hideMessageBox() {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.classList.add('hidden');
+        }
+
+        // Função para calcular e exibir a projeção de frequência
+        function calcularProjecao() {
+            // Obtém os valores dos campos de input
+            const semanasPassadasInput = document.getElementById('semanasPassadasInput');
+            const mediaAcumuladaInput = document.getElementById('mediaAcumuladaInput');
+            const ifaEscolaInput = document.getElementById('ifaEscolaInput');
+            const perfilSelecionado = document.getElementById('perfilUnidadeSelect').value;
+
+            // Converte os valores para números
+            const semanasPassadas = parseFloat(semanasPassadasInput.value);
+            const mediaAcumuladaValue = parseFloat(mediaAcumuladaInput.value);
+            const ifaEscolaValue = parseFloat(ifaEscolaInput.value);
+
+            // Obtém configurações do perfil selecionado
+            const perfil = perfis[perfilSelecionado];
+            const totalSemanas = perfil.totalSemanas;
+
+            // Valida os inputs
+            if (isNaN(semanasPassadas) || isNaN(mediaAcumuladaValue) || isNaN(ifaEscolaValue) || semanasPassadas <= 0 || semanasPassadas >= totalSemanas) {
+                showMessageBox('Por favor, insira valores válidos para todos os campos.');
+                return;
+            }
+            
+            // Valida se a média acumulada está entre 0 e 100%
+            if (mediaAcumuladaValue < 0 || mediaAcumuladaValue > 100) {
+                showMessageBox('A média de frequência acumulada deve estar entre 0% e 100%.');
+                return;
+            }
+            
+            // Valida se o IFA está entre 0 e 100%
+            if (ifaEscolaValue < 0 || ifaEscolaValue > 100) {
+                showMessageBox('O IFA da escola deve estar entre 0% e 100%.');
+                return;
+            }
+
+            // Converte IFA para decimal
+            const mediaMetaAnual = ifaEscolaValue / 100;
+
+            // Calcula as semanas futuras dinamicamente
+            const semanasFuturas = totalSemanas - semanasPassadas;
+            const mediaAcumuladaDecimal = mediaAcumuladaValue / 100;
+            
+            // Cálculo da projeção
+            const somaTotalNecessaria = mediaMetaAnual * totalSemanas;
+            const somaPassada = mediaAcumuladaDecimal * semanasPassadas;
+            const somaFuturaNecessaria = somaTotalNecessaria - somaPassada;
+            const mediaFuturaDecimal = somaFuturaNecessaria / semanasFuturas;
+            const mediaFuturaPorcentagem = (mediaFuturaDecimal * 100).toFixed(2);
+            
+            // Animação para o resultado
+            const resultadoElement = document.getElementById('resultado');
+            resultadoElement.classList.remove('animate-pulse');
+            void resultadoElement.offsetWidth; // Dispara o reflow para reiniciar a animação
+            resultadoElement.classList.add('animate-pulse');
+            
+            // Determina se está abaixo ou acima da meta
+            let statusMetaIFA = '';
+            let corStatusMeta = '';
+            let iconStatusMeta = '';
+
+            if (mediaAcumuladaValue < ifaEscolaValue) {
+                statusMetaIFA = 'ABAIXO DA META';
+                corStatusMeta = 'text-red-700';
+                iconStatusMeta = 'fa-arrow-down';
+            } else if (mediaAcumuladaValue > ifaEscolaValue) {
+                statusMetaIFA = 'ACIMA DA META';
+                corStatusMeta = 'text-green-700';
+                iconStatusMeta = 'fa-arrow-up';
+            } else {
+                statusMetaIFA = 'NA META';
+                corStatusMeta = 'text-yellow-700';
+                iconStatusMeta = 'fa-equals';
+            }
+
+            // Determina a cor do resultado baseado na dificuldade
+            let corDestaque = "text-red-700";
+            if (mediaFuturaPorcentagem <= 95) {
+                corDestaque = "text-green-700";
+            } else if (mediaFuturaPorcentagem <= 100) {
+                corDestaque = "text-yellow-700";
+            }
+
+            // Atualiza o texto do resultado principal
+            resultadoElement.innerHTML = `
+                <div class="text-red-700 font-bold mb-2"><i class="fas fa-chart-line mr-2"></i> PROJEÇÃO 2026 - ${perfil.nome.toUpperCase()}</div>
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 p-3 bg-gray-50 rounded-md">
+                    <div class="mb-2 md:mb-0">
+                        <span class="text-gray-700 font-medium">Meta de IFA da escola:</span>
+                        <span class="font-bold ${ifaEscolaValue >= perfil.ifaPadrao ? 'text-green-700' : 'text-yellow-700'} ml-2">${ifaEscolaValue.toFixed(1)}%</span>
+                        ${ifaEscolaValue !== perfil.ifaPadrao ? 
+                            `<span class="text-sm text-gray-600 ml-2">(padrão: ${perfil.ifaPadrao.toFixed(1)}%)</span>` : 
+                            `<span class="ifa-badge ml-2">META PADRÃO</span>`
+                        }
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-gray-700 font-medium mr-2">Situação atual:</span>
+                        <span class="${corStatusMeta} font-bold px-3 py-1 rounded-full text-sm ${corStatusMeta === 'text-red-700' ? 'bg-red-100' : corStatusMeta === 'text-green-700' ? 'bg-green-100' : 'bg-yellow-100'}">
+                            <i class="fas ${iconStatusMeta} mr-1"></i>
+                            ${statusMetaIFA}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-blue-50 p-3 rounded-md border-l-4 border-blue-500">
+                        <div class="text-sm text-gray-600 mb-1"><i class="fas fa-calendar-week mr-1"></i>Semanas acumuladas</div>
+                        <div class="text-xl font-bold text-blue-700">${semanasPassadas} semanas</div>
+                        <div class="text-sm text-gray-600 mt-1">Média: ${mediaAcumuladaValue.toFixed(1)}%</div>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded-md border-l-4 border-red-500">
+                        <div class="text-sm text-gray-600 mb-1"><i class="fas fa-calendar-alt mr-1"></i>Semanas restantes</div>
+                        <div class="text-xl font-bold text-red-700">${semanasFuturas} semanas</div>
+                        <div class="text-sm text-gray-600 mt-1">Meta necessária: ${mediaFuturaPorcentagem}%</div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-4 bg-gradient-to-r from-blue-50 to-red-50 border-2 border-red-200 rounded-md">
+                    <div class="text-gray-700 mb-2"><i class="fas fa-bullseye mr-2 text-red-600"></i>Para alcançar o IFA de ${ifaEscolaValue.toFixed(1)}%, a média para as próximas <span class="font-bold text-red-700">${semanasFuturas}</span> semanas não poderá ser inferior a:</div>
+                    <div class="text-3xl font-bold ${corDestaque} mt-2">${mediaFuturaPorcentagem}%</div>
+                    ${mediaFuturaDecimal > 1 ? 
+                        '<div class="mt-2 text-red-700 font-bold"><i class="fas fa-exclamation-triangle mr-1"></i>Meta inalcançável (acima de 100%)</div>' : 
+                        ''
+                    }
+                </div>
+            `;
+            
+            // Atualiza os valores dinâmicos na seção de explicação
+            document.getElementById('ifaEscolaValor1').innerText = ifaEscolaValue.toFixed(1);
+            document.getElementById('ifaEscolaValor2').innerText = ifaEscolaValue.toFixed(1);
+            document.getElementById('semanasPassadasValor').innerText = semanasPassadas;
+            document.getElementById('mediaAcumuladaValor').innerText = mediaAcumuladaValue.toFixed(1);
+            document.getElementById('totalSemanasValor').innerText = totalSemanas;
+            
+            document.getElementById('metaTotalCalc').innerText = `${mediaMetaAnual.toFixed(3)} x ${totalSemanas} semanas = ${somaTotalNecessaria.toFixed(3)}`;
+            document.getElementById('metaTotalValor').innerText = somaTotalNecessaria.toFixed(3);
+            
+            document.getElementById('conquistadoCalc').innerText = `${mediaAcumuladaDecimal.toFixed(3)} x ${semanasPassadas} semanas = ${somaPassada.toFixed(3)}`;
+            document.getElementById('conquistadoValor').innerText = somaPassada.toFixed(3);
+            
+            document.getElementById('desafioCalc').innerText = `${somaTotalNecessaria.toFixed(3)} (total necessário) - ${somaPassada.toFixed(3)} (total acumulado) = ${somaFuturaNecessaria.toFixed(3)}`;
+            document.getElementById('desafioValor').innerText = somaFuturaNecessaria.toFixed(3);
+            document.getElementById('semanasFuturasValor').innerText = semanasFuturas;
+            
+            document.getElementById('semanasRestantesValor').innerText = semanasFuturas;
+            document.getElementById('estrategiaCalc').innerText = `${somaFuturaNecessaria.toFixed(3)} (total que falta) ÷ ${semanasFuturas} semanas = ${mediaFuturaDecimal.toFixed(4)}`;
+            document.getElementById('metaSemanalValor').innerText = `${mediaFuturaPorcentagem}%`;
+
+            document.getElementById('conclusaoMeta').innerText = `${mediaFuturaPorcentagem}%`;
+            document.getElementById('conclusaoSemanasFuturas').innerText = semanasFuturas;
+
+            // Lógica para determinar o status da escola em relação ao IFA
+            let statusText = '';
+            let statusClass = '';
+            let statusIcon = '';
+            
+            if (mediaFuturaDecimal > 1) { // Acima de 100% de frequência necessária = impossível
+                statusText = `Com a média acumulada atual de ${mediaAcumuladaValue.toFixed(1)}%, é <span class="font-bold">MATEMATICAMENTE IMPOSSÍVEL</span> alcançar o IFA de ${ifaEscolaValue.toFixed(1)}%. A escola precisa de uma média de ${mediaFuturaPorcentagem}% nas próximas semanas, o que é impossível (acima de 100%).`;
+                statusClass = 'text-red-700 font-bold';
+                statusIcon = '<i class="fas fa-exclamation-triangle mr-2"></i>';
+            } else if (mediaFuturaPorcentagem > 95) {
+                statusText = `Atenção! Para alcançar o IFA de ${ifaEscolaValue.toFixed(1)}%, a escola precisará manter uma média de ${mediaFuturaPorcentagem}% nas próximas ${semanasFuturas} semanas. Esta é uma meta desafiadora que exigirá esforços concentrados.`;
+                statusClass = 'text-yellow-700';
+                statusIcon = '<i class="fas fa-exclamation-circle mr-2"></i>';
+            } else if (mediaAcumuladaValue < ifaEscolaValue) {
+                statusText = `A média acumulada da escola (${mediaAcumuladaValue.toFixed(1)}%) está abaixo do IFA desejado de ${ifaEscolaValue.toFixed(1)}%. Para recuperar, será necessário uma média de ${mediaFuturaPorcentagem}% nas próximas ${semanasFuturas} semanas.`;
+                statusClass = 'text-yellow-700';
+                statusIcon = '<i class="fas fa-clock mr-2"></i>';
+            } else if (mediaAcumuladaValue >= ifaEscolaValue) {
+                statusText = `Excelente! A média acumulada da escola (${mediaAcumuladaValue.toFixed(1)}%) já está no ou acima do IFA de ${ifaEscolaValue.toFixed(1)}%. Para manter esta posição, a escola precisa manter pelo menos ${mediaFuturaPorcentagem}% nas próximas ${semanasFuturas} semanas.`;
+                statusClass = 'text-green-700';
+                statusIcon = '<i class="fas fa-check-circle mr-2"></i>';
+            }
+
+            document.getElementById('statusIFA').innerHTML = 
+                `<span class="${statusClass}">${statusIcon}${statusText}</span>`;
+            
+            // Adiciona confetes se a meta for alcançável (<= 100%) e se a média atual já atingiu a meta
+            if (mediaFuturaDecimal <= 1 && mediaAcumuladaValue >= ifaEscolaValue) {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#005CA9', '#CC0000', '#FFD100', '#003366', '#FFFFFF']
+                });
+            }
+        }
+        
+        // Função de confete simples
+        function confetti({ particleCount, spread, origin, colors }) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '1000';
+            document.body.appendChild(canvas);
+            
+            const particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: origin.x * canvas.width,
+                    y: origin.y * canvas.height,
+                    size: Math.random() * 5 + 2,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedX: (Math.random() - 0.5) * spread,
+                    speedY: (Math.random() * 3 + 2),
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 10
+                });
+            }
+            
+            let animationId;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    
+                    ctx.restore();
+                    
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.rotation += p.rotationSpeed;
+                    
+                    // Reset particle when it goes out of screen
+                    if (p.y > canvas.height) {
+                        p.y = origin.y * canvas.height;
+                        p.x = origin.x * canvas.width;
+                    }
+                }
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Remove canvas after animation
+            setTimeout(() => {
+                cancelAnimationFrame(animationId);
+                canvas.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

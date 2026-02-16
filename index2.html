@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URE Caieiras 2026 - Mapeamento de Alunos Faltosos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- html2canvas para salvar a dashboard como imagem -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .sed-gradient {
+            background: linear-gradient(135deg, #005CA9 0%, #CC0000 100%);
+        }
+        
+        .sed-blue {
+            background-color: #005CA9;
+        }
+        
+        .sed-red {
+            background-color: #CC0000;
+        }
+        
+        .sed-dark-blue {
+            background-color: #003366;
+        }
+        
+        .sed-yellow {
+            background-color: #FFD100;
+        }
+        
+        .sed-light-blue {
+            background-color: #E6F2FF;
+        }
+        
+        .sed-light-red {
+            background-color: #FFE6E6;
+        }
+        
+        .year-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #CC0000;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            background-color: #CC0000;
+            color: white;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .profile-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .action-card {
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .action-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .risk-low { background-color: #10B981; }
+        .risk-medium { background-color: #F59E0B; }
+        .risk-high { background-color: #EF4444; }
+        .risk-critical { background-color: #7F1D1D; }
+        
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-indicator.active {
+            background-color: #CC0000;
+            color: white;
+        }
+        
+        .step-indicator.completed {
+            background-color: #10B981;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Cabeçalho -->
+    <header class="sed-gradient text-white shadow-lg relative">
+        <div class="year-badge">2026</div>
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://i.ibb.co/dscRg9Ms/LOGO-URE-CAIEIRAS-2-1.png" alt="Logo URE-CAIEIRAS" class="h-16 mr-4">
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold">URE Caieiras - Mapeamento de Alunos Faltosos</h1>
+                        <p class="text-sm md:text-base">Análise Multivariada e Plano de Ações 2026</p>
+                    </div>
+                </div>
+                <nav class="flex space-x-4">
+                    <a href="index.html" class="hover:text-yellow-300 transition"><i class="fas fa-home mr-1"></i> Início</a>
+                    <a href="index.html" class="hover:text-yellow-300 transition"><i class="fas fa-calculator mr-1"></i> Projetor de Frequência</a>
+                    <a href="#" class="hover:text-yellow-300 transition"><i class="fas fa-envelope mr-1"></i> Contato</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Progresso -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-xl font-semibold text-gray-800">Mapeamento de Perfis de Alunos Faltosos</h2>
+                <span class="text-sm font-medium text-gray-600" id="progressText">Passo 1 de 5</span>
+            </div>
+            <div class="progress-bar bg-gray-200">
+                <div id="progressFill" class="h-full bg-red-600 transition-all duration-500" style="width: 20%"></div>
+            </div>
+            <div class="flex justify-between mt-4">
+                <div class="flex flex-col items-center">
+                    <div class="step-indicator active" id="step1">1</div>
+                    <span class="text-xs mt-1 font-medium">Dados Gerais</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="step-indicator" id="step2">2</div>
+                    <span class="text-xs mt-1 font-medium">Frequência</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="step-indicator" id="step3">3</div>
+                    <span class="text-xs mt-1 font-medium">Acadêmico</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="step-indicator" id="step4">4</div>
+                    <span class="text-xs mt-1 font-medium">Sociofamiliar</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="step-indicator" id="step5">5</div>
+                    <span class="text-xs mt-1 font-medium">Resultados</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário em Etapas -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Etapa 1: Dados Gerais -->
+            <div id="step1Content" class="p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">1. Dados Gerais do Aluno/Turma</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Nome do Aluno (ou identificação):
+                        </label>
+                        <input type="text" id="nomeAluno" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Ano/Série:
+                        </label>
+                        <select id="anoSerie" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="">Selecione</option>
+                            <option value="1anoEF">1º Ano EF</option>
+                            <option value="2anoEF">2º Ano EF</option>
+                            <option value="3anoEF">3º Ano EF</option>
+                            <option value="4anoEF">4º Ano EF</option>
+                            <option value="5anoEF">5º Ano EF</option>
+                            <option value="6anoEF">6º Ano EF</option>
+                            <option value="7anoEF">7º Ano EF</option>
+                            <option value="8anoEF">8º Ano EF</option>
+                            <option value="9anoEF">9º Ano EF</option>
+                            <option value="1anoEM">1º Ano EM</option>
+                            <option value="2anoEM">2º Ano EM</option>
+                            <option value="3anoEM">3º Ano EM</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Turno:
+                        </label>
+                        <select id="turno" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="">Selecione</option>
+                            <option value="manha">Manhã</option>
+                            <option value="tarde">Tarde</option>
+                            <option value="noite">Noite</option>
+                            <option value="integral">Integral</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Idade:
+                        </label>
+                        <input type="number" id="idade" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Período de Análise (em semanas):
+                    </label>
+                    <input type="number" id="periodoAnalise" value="8" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                </div>
+            </div>
+
+            <!-- Etapa 2: Dados de Frequência -->
+            <div id="step2Content" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">2. Análise de Frequência</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            % de Frequência no Período:
+                        </label>
+                        <input type="number" id="frequenciaPercentual" min="0" max="100" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                        <div class="mt-2">
+                            <div class="flex justify-between text-sm">
+                                <span>0%</span>
+                                <span id="frequenciaValue">--</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress-bar bg-gray-300 mt-1">
+                                <div id="frequenciaBar" class="h-full bg-blue-600"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Número Total de Faltas:
+                        </label>
+                        <input type="number" id="totalFaltas" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                    </div>
+                    
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Padrão de Faltas:
+                        </label>
+                        <select id="padraoFaltas" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="esporadico">Esporádicas (aleatórias)</option>
+                            <option value="seguidos">Dias consecutivos</option>
+                            <option value="especificos">Dias específicos (ex: segundas)</option>
+                            <option value="aumentando">Aumentando progressivamente</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Horários com Maior Absenteísmo:
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="horarios" value="primeiras" class="mr-2">
+                            <span>Primeiras aulas</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="horarios" value="ultimas" class="mr-2">
+                            <span>Últimas aulas</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="horarios" value="posrecreio" class="mr-2">
+                            <span>Pós-recreio</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="horarios" value="todos" class="mr-2">
+                            <span>Todos os horários</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 3: Dados Acadêmicos -->
+            <div id="step3Content" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">3. Desempenho Acadêmico</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Média Geral Atual:
+                        </label>
+                        <input type="number" id="mediaGeral" min="0" max="10" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Tendência de Notas:
+                        </label>
+                        <select id="tendenciaNotas" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="melhorando">Melhorando</option>
+                            <option value="estavel">Estável</option>
+                            <option value="piorando">Piorando</option>
+                            <option value="instavel">Instável (oscilante)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Disciplinas com Maior Dificuldade (marcar até 3):
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="matematica" class="mr-2">
+                            <span>Matemática</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="portugues" class="mr-2">
+                            <span>Português</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="ciencias" class="mr-2">
+                            <span>Ciências</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="historia" class="mr-2">
+                            <span>História</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="geografia" class="mr-2">
+                            <span>Geografia</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="ingles" class="mr-2">
+                            <span>Inglês</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="educacaofisica" class="mr-2">
+                            <span>Educação Física</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="dificuldades" value="artes" class="mr-2">
+                            <span>Artes</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Participação em Sala de Aula:
+                    </label>
+                    <select id="participacao" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                        <option value="ativa">Ativa (participa bastante)</option>
+                        <option value="moderada">Moderada (participa quando solicitado)</option>
+                        <option value="passiva">Passiva (raro participar)</option>
+                        <option value="isolada">Isolada (evita interação)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Etapa 4: Dados Sociofamiliares -->
+            <div id="step4Content" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">4. Contexto Sociofamiliar</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Meio de Transporte para Escola:
+                        </label>
+                        <select id="transporte" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="transporte_publico">Transporte Público</option>
+                            <option value="a_pe">A Pé</option>
+                            <option value="bicicleta">Bicicleta</option>
+                            <option value="carro_familiar">Carro Familiar</option>
+                            <option value="escolar">Ônibus Escolar</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Tempo de Deslocamento (minutos):
+                        </label>
+                        <input type="number" id="tempoDeslocamento" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Acompanhamento Familiar:
+                        </label>
+                        <select id="acompanhamento" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="intenso">Intenso (diário)</option>
+                            <option value="regular">Regular (semanal)</option>
+                            <option value="esporadico">Esporádico (mensal)</option>
+                            <option value="inexistente">Inexistente</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Situação Familiar:
+                        </label>
+                        <select id="situacaoFamiliar" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
+                            <option value="estavel">Estável</option>
+                            <option value="separacao">Separação/Divórcio Recente</option>
+                            <option value="mudanca">Mudança Recente</option>
+                            <option value="problemas_saude">Problemas de Saúde na Família</option>
+                            <option value="outros">Outras Situações</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Fatores de Risco Adicionais (marcar os que se aplicam):
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="trabalho" class="mr-2">
+                            <span>Trabalho fora do horário escolar</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="cuidado" class="mr-2">
+                            <span>Cuidado de familiares (idosos/crianças)</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="saude" class="mr-2">
+                            <span>Problemas de saúde física</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="mental" class="mr-2">
+                            <span>Problemas de saúde mental</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="material" class="mr-2">
+                            <span>Falta de material escolar</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="alimentacao" class="mr-2">
+                            <span>Problemas de alimentação</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="bullying" class="mr-2">
+                            <span>Relatos de bullying</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="fatores_risco" value="drogas" class="mr-2">
+                            <span>Suspeita envolvimento com ilicitos</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 5: Resultados e Ações -->
+            <div id="step5Content" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">5. Análise e Plano de Ações</h3>
+                
+                <div id="resultadosContainer">
+                    <!-- Resultados serão inseridos aqui via JavaScript -->
+                    <div class="text-center py-12">
+                        <div class="text-gray-400 mb-4">
+                            <i class="fas fa-chart-bar text-5xl"></i>
+                        </div>
+                        <p class="text-gray-600">Preencha todas as etapas para gerar a análise personalizada</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navegação entre etapas -->
+            <div class="p-6 border-t border-gray-200 bg-gray-50">
+                <div class="flex justify-between">
+                    <button id="prevBtn" onclick="prevStep()" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 hidden">
+                        <i class="fas fa-arrow-left mr-2"></i> Anterior
+                    </button>
+                    <button id="nextBtn" onclick="nextStep()" class="ml-auto px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                        Próximo <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard de Resultados (só aparece após análise) -->
+        <div id="dashboardContainer" class="mt-8 hidden">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Cabeçalho da Dashboard com botão de salvar -->
+                <div class="sed-blue text-white p-6 flex flex-wrap items-center justify-between">
+                    <div id="dashboardHeaderText">
+                        <h2 class="text-2xl font-bold mb-2">Dashboard de Análise</h2>
+                        <p class="text-sm">Perfil identificado e plano de ações personalizado</p>
+                    </div>
+                    <button id="saveDashboardBtn" class="bg-white text-blue-900 px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 transition flex items-center">
+                        <i class="fas fa-camera mr-2"></i>Salvar Dashboard como Imagem
+                    </button>
+                </div>
+                
+                <!-- Conteúdo da Dashboard que será capturado para salvar -->
+                <div id="dashboardPrintable" class="p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Card de Perfil -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 profile-card">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Perfil Identificado</h3>
+                                <div id="perfilCard" class="text-center py-4">
+                                    <!-- Perfil será inserido aqui -->
+                                </div>
+                                <div class="mt-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm font-medium text-gray-700">Nível de Risco:</span>
+                                        <span id="nivelRisco" class="px-3 py-1 rounded-full text-sm font-bold text-white">--</span>
+                                    </div>
+                                    <div class="progress-bar bg-gray-200">
+                                        <div id="riscoBar" class="h-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card de Fatores de Influência -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Fatores de Influência</h3>
+                                <div class="h-64">
+                                    <canvas id="fatoresChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Plano de Ações -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Plano de Ações Personalizado</h3>
+                        <div id="acoesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Ações serão inseridas aqui -->
+                        </div>
+                    </div>
+                    
+                    <!-- Monitoramento -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Plano de Monitoramento</h3>
+                        <div id="monitoramentoContainer">
+                            <!-- Plano de monitoramento será inserido aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gradient-to-r from-blue-900 to-gray-900 text-white py-8 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">URE Caieiras 2026</h3>
+                    <p class="text-sm text-gray-300">
+                        Unidade Regional de Ensino de Caieiras<br>
+                        Secretaria da Educação do Estado de São Paulo<br>
+                        <span class="text-red-300 font-bold">Sistema de Mapeamento de Faltosos</span>
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Recursos</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index_projetor.html" class="text-gray-300 hover:text-red-300 transition"><i class="fas fa-calculator mr-2"></i> Projetor de Frequência</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-red-300 transition"><i class="fas fa-chart-line mr-2"></i> Dashboard de Indicadores</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-red-300 transition"><i class="fas fa-file-alt mr-2"></i> Modelos de Relatórios</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Suporte</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-phone-alt mr-2"></i>(11) 4442-8605</li>
+                        <li><i class="fas fa-envelope mr-2"></i> ure.caieiras@educacao.sp.gov.br</li>
+                        <li><i class="fas fa-clock mr-2"></i> Segunda a Sexta: 8h às 17h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
+                <p>© 2026 Unidade Regional de Ensino de Caieiras. Todos os direitos reservados.</p>
+                <p class="mt-2">Sistema desenvolvido para a prevenção da evasão escolar - Resolução SEDUC 39/2023</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais
+        let currentStep = 1;
+        const totalSteps = 5;
+        let dadosAluno = {};
+        let fatoresChart = null;
+
+        // Configuração dos perfis
+        const perfis = {
+            academico: {
+                nome: "Dificuldades Acadêmicas",
+                descricao: "Aluno com baixo desempenho escolar que afeta a motivação e frequência",
+                icone: "fas fa-graduation-cap",
+                cor: "text-blue-600",
+                bgCor: "bg-blue-100",
+                borderCor: "border-blue-500",
+                acoes: [
+                    {
+                        tipo: "Imediato",
+                        titulo: "Apoio Pedagógico Individualizado",
+                        descricao: "Implementar tutoria com professor específico para as disciplinas de maior dificuldade, 2x por semana.",
+                        responsavel: "Coordenador Pedagógico",
+                        prazo: "1 semana",
+                        recursos: "Sala de apoio, material específico"
+                    },
+                    {
+                        tipo: "Curto Prazo",
+                        titulo: "Plano de Estudos Personalizado",
+                        descricao: "Desenvolver plano de estudos com metas semanais e acompanhamento do rendimento.",
+                        responsavel: "Professor Orientador",
+                        prazo: "2 semanas",
+                        recursos: "Agenda escolar, aplicativo de estudos"
+                    },
+                    {
+                        tipo: "Médio Prazo",
+                        titulo: "Grupo de Estudos Monitorado",
+                        descricao: "Criar grupo de estudos com colegas para fortalecer aprendizado e socialização.",
+                        responsavel: "Professor da Disciplina",
+                        prazo: "3 semanas",
+                        recursos: "Espaço físico, material colaborativo"
+                    }
+                ]
+            },
+            transporte: {
+                nome: "Problemas de Transporte/Deslocamento",
+                descricao: "Dificuldades no trajeto casa-escola que impactam a frequência regular",
+                icone: "fas fa-bus",
+                cor: "text-yellow-600",
+                bgCor: "bg-yellow-100",
+                borderCor: "border-yellow-500",
+                acoes: [
+                    {
+                        tipo: "Imediato",
+                        titulo: "Verificação de Rota Alternativa",
+                        descricao: "Mapear rotas alternativas e horários de transporte disponíveis na região.",
+                        responsavel: "Serviço Social Escolar",
+                        prazo: "3 dias",
+                        recursos: "Mapas, horários de transporte"
+                    },
+                    {
+                        tipo: "Curto Prazo",
+                        titulo: "Acompanhamento de Colegas",
+                        descricao: "Organizar sistema de acompanhamento com colegas que fazem trajeto similar.",
+                        responsavel: "Coordenador de Turma",
+                        prazo: "1 semana",
+                        recursos: "Lista de endereços, autorização dos pais"
+                    },
+                    {
+                        tipo: "Médio Prazo",
+                        titulo: "Encaminhamento para Transporte Escolar",
+                        descricao: "Solicitar vaga no transporte escolar municipal quando disponível.",
+                        responsavel: "Direção Escolar",
+                        prazo: "2 semanas",
+                        recursos: "Formulários, documentação necessária"
+                    }
+                ]
+            },
+            familiar: {
+                nome: "Conflitos Familiares",
+                descricao: "Situações familiares que interferem na frequência e desempenho escolar",
+                icone: "fas fa-home",
+                cor: "text-purple-600",
+                bgCor: "bg-purple-100",
+                borderCor: "border-purple-500",
+                acoes: [
+                    {
+                        tipo: "Imediato",
+                        titulo: "Entrevista com Responsáveis",
+                        descricao: "Agendar reunião com família para entender situação e buscar soluções conjuntas.",
+                        responsavel: "Serviço Social/Pedagogo",
+                        prazo: "5 dias",
+                        recursos: "Sala de reuniões, formulário de entrevista"
+                    },
+                    {
+                        tipo: "Curto Prazo",
+                        titulo: "Apoio Psicossocial",
+                        descricao: "Encaminhar para atendimento psicológico na escola ou rede de apoio.",
+                        responsavel: "Coordenador Pedagógico",
+                        prazo: "1 semana",
+                        recursos: "Rede de apoio psicossocial"
+                    },
+                    {
+                        tipo: "Médio Prazo",
+                        titulo: "Plano de Acompanhamento Familiar",
+                        descricao: "Desenvolver plano com visitas domiciliares e apoio à família.",
+                        responsavel: "Serviço Social Escolar",
+                        prazo: "3 semanas",
+                        recursos: "Equipe multidisciplinar"
+                    }
+                ]
+            },
+            saude: {
+                nome: "Problemas de Saúde",
+                descricao: "Questões de saúde física ou mental que impactam a frequência escolar",
+                icone: "fas fa-heartbeat",
+                cor: "text-green-600",
+                bgCor: "bg-green-100",
+                borderCor: "border-green-500",
+                acoes: [
+                    {
+                        tipo: "Imediato",
+                        titulo: "Avaliação da Situação de Saúde",
+                        descricao: "Verificar necessidade de adaptações ou atendimentos específicos.",
+                        responsavel: "Enfermeiro Escolar/Coordenador",
+                        prazo: "3 dias",
+                        recursos: "Ficha de saúde, contato com posto de saúde"
+                    },
+                    {
+                        tipo: "Curto Prazo",
+                        titulo: "Plano de Acomodações",
+                        descricao: "Implementar adaptações necessárias (horários, atividades, etc.).",
+                        responsavel: "Coordenador Pedagógico",
+                        prazo: "1 semana",
+                        recursos: "Plano de atendimento especializado"
+                    },
+                    {
+                        tipo: "Médio Prazo",
+                        titulo: "Monitoramento Contínuo",
+                        descricao: "Acompanhamento regular da evolução e ajustes no plano.",
+                        responsavel: "Equipe Multiprofissional",
+                        prazo: "Contínuo",
+                        recursos: "Registro de evolução, contato com profissionais de saúde"
+                    }
+                ]
+            },
+            motivacional: {
+                nome: "Desmotivação Escolar",
+                descricao: "Falta de engajamento com a escola e atividades escolares",
+                icone: "fas fa-brain",
+                cor: "text-red-600",
+                bgCor: "bg-red-100",
+                borderCor: "border-red-500",
+                acoes: [
+                    {
+                        tipo: "Imediato",
+                        titulo: "Mentoria com Professor de Referência",
+                        descricao: "Estabelecer vínculo com professor que possa atuar como mentor.",
+                        responsavel: "Coordenador Pedagógico",
+                        prazo: "1 semana",
+                        recursos: "Horário específico para encontros"
+                    },
+                    {
+                        tipo: "Curto Prazo",
+                        titulo: "Projeto de Interesse do Aluno",
+                        descricao: "Identificar áreas de interesse e criar projeto especial relacionado.",
+                        responsavel: "Professor Orientador",
+                        prazo: "2 semanas",
+                        recursos: "Material para projeto, espaço adequado"
+                    },
+                    {
+                        tipo: "Médio Prazo",
+                        titulo: "Participação em Atividades Extracurriculares",
+                        descricao: "Inserir em atividades que despertem interesse e senso de pertencimento.",
+                        responsavel: "Coordenador de Projetos",
+                        prazo: "3 semanas",
+                        recursos: "Oficinas, clubes, grupos esportivos"
+                    }
+                ]
+            },
+            multiplos: {
+                nome: "Fatores Múltiplos",
+                descricao: "Combinação de vários fatores que impactam a frequência",
+                icone: "fas fa-layer-group",
+                cor: "text-gray-600",
+                bgCor: "bg-gray-100",
+                borderCor: "border-gray-500",
+                acoes: [
+                    {
+                        tipo: "Imediato",
+                        titulo: "Plano Integrado de Intervenção",
+                        descricao: "Desenvolver plano que aborde os principais fatores identificados.",
+                        responsavel: "Equipe Multidisciplinar",
+                        prazo: "1 semana",
+                        recursos: "Reunião de equipe, formulário integrado"
+                    },
+                    {
+                        tipo: "Curto Prazo",
+                        titulo: "Acompanhamento Intensivo",
+                        descricao: "Monitoramento diário e contato frequente com família.",
+                        responsavel: "Coordenador de Turma",
+                        prazo: "2 semanas",
+                        recursos: "Registro diário, contatos telefônicos"
+                    },
+                    {
+                        tipo: "Médio Prazo",
+                        titulo: "Rede de Apoio Integrada",
+                        descricao: "Articular diferentes serviços (saúde, assistência social, etc.).",
+                        responsavel: "Direção Escolar",
+                        prazo: "3 semanas",
+                        recursos: "Contatos intersetoriais, reuniões integradas"
+                    }
+                ]
+            }
+        };
+
+        // Funções de navegação
+        function showStep(step) {
+            // Esconder todas as etapas
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step${i}Content`).classList.add('hidden');
+                document.getElementById(`step${i}`).classList.remove('active', 'completed');
+            }
+            
+            // Mostrar etapa atual
+            document.getElementById(`step${step}Content`).classList.remove('hidden');
+            
+            // Atualizar indicadores de progresso
+            for (let i = 1; i < step; i++) {
+                document.getElementById(`step${i}`).classList.add('completed');
+            }
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Atualizar barra de progresso
+            const progressPercent = ((step - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progressFill').style.width = `${progressPercent}%`;
+            document.getElementById('progressText').textContent = `Passo ${step} de ${totalSteps}`;
+            
+            // Atualizar botões
+            document.getElementById('prevBtn').classList.toggle('hidden', step === 1);
+            
+            if (step === totalSteps) {
+                document.getElementById('nextBtn').innerHTML = 'Gerar Análise <i class="fas fa-chart-bar ml-2"></i>';
+                document.getElementById('nextBtn').onclick = gerarAnalise;
+            } else {
+                document.getElementById('nextBtn').innerHTML = 'Próximo <i class="fas fa-arrow-right ml-2"></i>';
+                document.getElementById('nextBtn').onclick = nextStep;
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Validar dados da etapa atual antes de avançar
+                if (validarEtapa(currentStep)) {
+                    salvarDadosEtapa(currentStep);
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function validarEtapa(etapa) {
+            switch(etapa) {
+                case 1:
+                    const anoSerie = document.getElementById('anoSerie').value;
+                    const turno = document.getElementById('turno').value;
+                    const idade = document.getElementById('idade').value;
+                    
+                    if (!anoSerie || !turno || !idade) {
+                        alert('Por favor, preencha todos os campos obrigatórios da etapa 1.');
+                        return false;
+                    }
+                    return true;
+                    
+                case 2:
+                    const frequencia = document.getElementById('frequenciaPercentual').value;
+                    if (frequencia === '' || frequencia < 0 || frequencia > 100) {
+                        alert('Por favor, informe uma frequência percentual válida (0-100%).');
+                        return false;
+                    }
+                    return true;
+                    
+                case 3:
+                    const media = document.getElementById('mediaGeral').value;
+                    if (media === '' || media < 0 || media > 10) {
+                        alert('Por favor, informe uma média geral válida (0-10).');
+                        return false;
+                    }
+                    return true;
+                    
+                default:
+                    return true;
+            }
+        }
+
+        function salvarDadosEtapa(etapa) {
+            switch(etapa) {
+                case 1:
+                    dadosAluno.nome = document.getElementById('nomeAluno').value;
+                    dadosAluno.anoSerie = document.getElementById('anoSerie').value;
+                    dadosAluno.turno = document.getElementById('turno').value;
+                    dadosAluno.idade = parseInt(document.getElementById('idade').value);
+                    dadosAluno.periodoAnalise = parseInt(document.getElementById('periodoAnalise').value);
+                    break;
+                    
+                case 2:
+                    dadosAluno.frequenciaPercentual = parseFloat(document.getElementById('frequenciaPercentual').value);
+                    dadosAluno.totalFaltas = parseInt(document.getElementById('totalFaltas').value) || 0;
+                    dadosAluno.padraoFaltas = document.getElementById('padraoFaltas').value;
+                    
+                    // Coletar horários selecionados
+                    const horariosSelecionados = [];
+                    document.querySelectorAll('input[name="horarios"]:checked').forEach(cb => {
+                        horariosSelecionados.push(cb.value);
+                    });
+                    dadosAluno.horariosFaltas = horariosSelecionados;
+                    break;
+                    
+                case 3:
+                    dadosAluno.mediaGeral = parseFloat(document.getElementById('mediaGeral').value);
+                    dadosAluno.tendenciaNotas = document.getElementById('tendenciaNotas').value;
+                    dadosAluno.participacao = document.getElementById('participacao').value;
+                    
+                    // Coletar dificuldades selecionadas
+                    const dificuldades = [];
+                    document.querySelectorAll('input[name="dificuldades"]:checked').forEach(cb => {
+                        dificuldades.push(cb.value);
+                    });
+                    dadosAluno.dificuldades = dificuldades;
+                    break;
+                    
+                case 4:
+                    dadosAluno.transporte = document.getElementById('transporte').value;
+                    dadosAluno.tempoDeslocamento = parseInt(document.getElementById('tempoDeslocamento').value) || 0;
+                    dadosAluno.acompanhamento = document.getElementById('acompanhamento').value;
+                    dadosAluno.situacaoFamiliar = document.getElementById('situacaoFamiliar').value;
+                    
+                    // Coletar fatores de risco
+                    const fatoresRisco = [];
+                    document.querySelectorAll('input[name="fatores_risco"]:checked').forEach(cb => {
+                        fatoresRisco.push(cb.value);
+                    });
+                    dadosAluno.fatoresRisco = fatoresRisco;
+                    break;
+            }
+        }
+
+        // Atualizar barra de frequência
+        document.getElementById('frequenciaPercentual').addEventListener('input', function() {
+            const value = this.value;
+            document.getElementById('frequenciaValue').textContent = `${value}%`;
+            document.getElementById('frequenciaBar').style.width = `${value}%`;
+            
+            // Atualizar cor baseada no valor
+            let color = '#EF4444'; // vermelho
+            if (value >= 80) color = '#10B981'; // verde
+            else if (value >= 60) color = '#F59E0B'; // amarelo
+            
+            document.getElementById('frequenciaBar').style.backgroundColor = color;
+        });
+
+        function gerarAnalise() {
+            salvarDadosEtapa(5);
+            
+            // Análise dos dados para determinar perfil
+            const perfil = determinarPerfil();
+            const nivelRisco = calcularNivelRisco();
+            
+            // Mostrar resultados
+            exibirResultados(perfil, nivelRisco);
+            
+            // Mostrar dashboard
+            document.getElementById('dashboardContainer').classList.remove('hidden');
+            
+            // Atualizar título da etapa 5
+            document.querySelector('#step5Content h3').textContent = '5. Análise Concluída - Plano de Ações';
+            
+            // Alterar botão
+            document.getElementById('nextBtn').classList.add('hidden');
+            document.getElementById('prevBtn').classList.remove('hidden');
+            document.getElementById('prevBtn').innerHTML = '<i class="fas fa-edit mr-2"></i> Editar Dados';
+            document.getElementById('prevBtn').onclick = function() {
+                document.getElementById('dashboardContainer').classList.add('hidden');
+                currentStep = 1;
+                showStep(1);
+            };
+        }
+
+        function determinarPerfil() {
+            let pontos = {
+                academico: 0,
+                transporte: 0,
+                familiar: 0,
+                saude: 0,
+                motivacional: 0
+            };
+            
+            // Análise de frequência
+            if (dadosAluno.frequenciaPercentual < 60) pontos.academico += 3;
+            if (dadosAluno.frequenciaPercentual < 70) pontos.motivacional += 2;
+            
+            // Análise de faltas
+            if (dadosAluno.padraoFaltas === 'especificos') pontos.transporte += 2;
+            if (dadosAluno.padraoFaltas === 'seguidos') pontos.saude += 2;
+            if (dadosAluno.padraoFaltas === 'aumentando') pontos.motivacional += 2;
+            
+            // Análise acadêmica
+            if (dadosAluno.mediaGeral < 6) pontos.academico += 3;
+            if (dadosAluno.tendenciaNotas === 'piorando') pontos.academico += 2;
+            if (dadosAluno.dificuldades && dadosAluno.dificuldades.length > 2) pontos.academico += 2;
+            
+            // Análise sociofamiliar
+            if (dadosAluno.transporte === 'a_pe' && dadosAluno.tempoDeslocamento > 30) pontos.transporte += 3;
+            if (dadosAluno.acompanhamento === 'inexistente' || dadosAluno.acompanhamento === 'esporadico') pontos.familiar += 2;
+            if (dadosAluno.situacaoFamiliar !== 'estavel') pontos.familiar += 2;
+            
+            // Fatores de risco
+            if (dadosAluno.fatoresRisco) {
+                dadosAluno.fatoresRisco.forEach(fator => {
+                    if (['trabalho', 'cuidado'].includes(fator)) pontos.familiar += 1;
+                    if (['saude', 'mental'].includes(fator)) pontos.saude += 2;
+                    if (['bullying', 'drogas'].includes(fator)) pontos.motivacional += 2;
+                });
+            }
+            
+            // Determinar perfil com maior pontuação
+            let perfilDominante = 'academico';
+            let maiorPontuacao = pontos.academico;
+            
+            for (const [perfil, pontuacao] of Object.entries(pontos)) {
+                if (pontuacao > maiorPontuacao) {
+                    maiorPontuacao = pontuacao;
+                    perfilDominante = perfil;
+                }
+            }
+            
+            // Se houver múltiplos fatores com pontuação similar, usar perfil múltiplo
+            const perfisComPontuacaoAlta = Object.entries(pontos)
+                .filter(([_, p]) => p >= maiorPontuacao * 0.8)
+                .map(([p, _]) => p);
+            
+            if (perfisComPontuacaoAlta.length > 1) {
+                return perfis.multiplos;
+            }
+            
+            return perfis[perfilDominante];
+        }
+
+        function calcularNivelRisco() {
+            let pontosRisco = 0;
+            
+            // Frequência
+            if (dadosAluno.frequenciaPercentual < 50) pontosRisco += 3;
+            else if (dadosAluno.frequenciaPercentual < 70) pontosRisco += 2;
+            else if (dadosAluno.frequenciaPercentual < 80) pontosRisco += 1;
+            
+            // Acadêmico
+            if (dadosAluno.mediaGeral < 5) pontosRisco += 3;
+            else if (dadosAluno.mediaGeral < 6) pontosRisco += 2;
+            else if (dadosAluno.mediaGeral < 7) pontosRisco += 1;
+            
+            // Fatores de risco
+            if (dadosAluno.fatoresRisco) {
+                pontosRisco += Math.min(dadosAluno.fatoresRisco.length, 3);
+            }
+            
+            // Situação familiar
+            if (dadosAluno.acompanhamento === 'inexistente') pontosRisco += 2;
+            if (dadosAluno.situacaoFamiliar !== 'estavel') pontosRisco += 1;
+            
+            // Classificar nível de risco
+            if (pontosRisco >= 8) return { nivel: 'CRÍTICO', cor: 'risk-critical', percentual: 100 };
+            else if (pontosRisco >= 6) return { nivel: 'ALTO', cor: 'risk-high', percentual: 75 };
+            else if (pontosRisco >= 4) return { nivel: 'MÉDIO', cor: 'risk-medium', percentual: 50 };
+            else return { nivel: 'BAIXO', cor: 'risk-low', percentual: 25 };
+        }
+
+        function exibirResultados(perfil, nivelRisco) {
+            // Atualizar card de perfil
+            const perfilCard = document.getElementById('perfilCard');
+            perfilCard.innerHTML = `
+                <div class="${perfil.bgCor} ${perfil.cor} p-4 rounded-lg mb-4">
+                    <i class="${perfil.icone} text-4xl mb-3"></i>
+                    <h4 class="text-xl font-bold mb-2">${perfil.nome}</h4>
+                    <p class="text-sm">${perfil.descricao}</p>
+                </div>
+                <div class="text-left">
+                    <p class="text-sm text-gray-600 mb-2"><i class="fas fa-user mr-2"></i>${dadosAluno.nome || 'Aluno não identificado'}</p>
+                    <p class="text-sm text-gray-600"><i class="fas fa-chart-line mr-2"></i>Frequência: ${dadosAluno.frequenciaPercentual}%</p>
+                </div>
+            `;
+            
+            // Atualizar nível de risco
+            document.getElementById('nivelRisco').textContent = nivelRisco.nivel;
+            document.getElementById('nivelRisco').className = `px-3 py-1 rounded-full text-sm font-bold text-white ${nivelRisco.cor}`;
+            document.getElementById('riscoBar').className = `h-full ${nivelRisco.cor}`;
+            document.getElementById('riscoBar').style.width = `${nivelRisco.percentual}%`;
+            
+            // Gerar gráfico de fatores
+            gerarGraficoFatores(perfil);
+            
+            // Exibir ações
+            exibirAcoes(perfil);
+            
+            // Exibir plano de monitoramento
+            exibirMonitoramento(perfil);
+        }
+
+        function gerarGraficoFatores(perfil) {
+            const ctx = document.getElementById('fatoresChart').getContext('2d');
+            
+            // Destruir gráfico anterior se existir
+            if (fatoresChart) {
+                fatoresChart.destroy();
+            }
+            
+            // Dados para o gráfico
+            const fatores = [
+                { nome: 'Frequência', valor: dadosAluno.frequenciaPercentual || 0, cor: '#3B82F6' },
+                { nome: 'Desempenho', valor: (dadosAluno.mediaGeral || 0) * 10, cor: '#10B981' },
+                { nome: 'Transporte', valor: dadosAluno.tempoDeslocamento > 30 ? 80 : 30, cor: '#F59E0B' },
+                { nome: 'Acompanhamento', valor: { 'intenso': 20, 'regular': 40, 'esporadico': 70, 'inexistente': 90 }[dadosAluno.acompanhamento] || 50, cor: '#8B5CF6' },
+                { nome: 'Fatores Risco', valor: (dadosAluno.fatoresRisco?.length || 0) * 20, cor: '#EF4444' }
+            ];
+            
+            fatoresChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: fatores.map(f => f.nome),
+                    datasets: [{
+                        label: 'Intensidade do Fator',
+                        data: fatores.map(f => f.valor),
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        borderColor: '#EF4444',
+                        borderWidth: 2,
+                        pointBackgroundColor: fatores.map(f => f.cor),
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function exibirAcoes(perfil) {
+            const acoesContainer = document.getElementById('acoesContainer');
+            acoesContainer.innerHTML = '';
+            
+            perfil.acoes.forEach((acao, index) => {
+                const card = document.createElement('div');
+                card.className = `action-card ${perfil.bgCor} p-5 rounded-lg shadow-sm`;
+                card.style.borderLeftColor = getComputedStyle(document.documentElement).getPropertyValue(`--color-${perfil.borderCor.split('-')[1]}`) || '#6B7280';
+                
+                card.innerHTML = `
+                    <div class="flex items-start mb-3">
+                        <span class="${perfil.cor} font-bold mr-3">${index + 1}</span>
+                        <div>
+                            <span class="text-xs font-semibold px-2 py-1 rounded ${perfil.bgCor} ${perfil.cor}">${acao.tipo}</span>
+                            <h4 class="font-bold text-gray-800 mt-1">${acao.titulo}</h4>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">${acao.descricao}</p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center">
+                            <i class="fas fa-user-tie mr-2 ${perfil.cor}"></i>
+                            <span class="font-medium">Responsável:</span>
+                            <span class="ml-2">${acao.responsavel}</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar-alt mr-2 ${perfil.cor}"></i>
+                            <span class="font-medium">Prazo:</span>
+                            <span class="ml-2">${acao.prazo}</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-tools mr-2 ${perfil.cor}"></i>
+                            <span class="font-medium">Recursos:</span>
+                            <span class="ml-2">${acao.recursos}</span>
+                        </div>
+                    </div>
+                `;
+                
+                acoesContainer.appendChild(card);
+            });
+        }
+
+        function exibirMonitoramento(perfil) {
+            const monitoramentoContainer = document.getElementById('monitoramentoContainer');
+            
+            monitoramentoContainer.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3"><i class="fas fa-calendar-check text-blue-600 mr-2"></i>Monitoramento de Frequência</h5>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Checagem diária de presença
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Contato semanal com família
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Relatório quinzenal de evolução
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3"><i class="fas fa-chart-line text-green-600 mr-2"></i>Avaliação de Resultados</h5>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Reavaliação após 15 dias
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Ajuste do plano se necessário
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Meta: +15% frequência em 30 dias
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h5 class="font-semibold text-gray-800 mb-3"><i class="fas fa-users text-purple-600 mr-2"></i>Envolvimento da Equipe</h5>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Reuniões semanais da equipe
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Comunicação constante família-escola
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                Articulação com rede de apoio
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                    <h5 class="font-semibold text-blue-800 mb-2"><i class="fas fa-lightbulb mr-2"></i>Indicadores de Sucesso</h5>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-700">${Math.min(dadosAluno.frequenciaPercentual + 15, 100)}%</div>
+                            <div class="text-xs text-gray-600">Meta de frequência (30 dias)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-700">${Math.min((dadosAluno.mediaGeral || 0) + 1, 10).toFixed(1)}</div>
+                            <div class="text-xs text-gray-600">Meta de média (30 dias)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-purple-700">80%</div>
+                            <div class="text-xs text-gray-600">Redução de faltas (60 dias)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-yellow-700">4</div>
+                            <div class="text-xs text-gray-600">Encontros com família (30 dias)</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Função para salvar a dashboard como imagem
+        function salvarDashboard() {
+            const elemento = document.getElementById('dashboardPrintable');
+            if (!elemento) return;
+            
+            // Feedback visual
+            const btn = document.getElementById('saveDashboardBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Capturando...';
+            btn.disabled = true;
+            
+            html2canvas(elemento, {
+                scale: 1.5, // Melhor qualidade
+                backgroundColor: '#ffffff',
+                logging: false,
+                allowTaint: false,
+                useCORS: true
+            }).then(canvas => {
+                // Criar link de download
+                const link = document.createElement('a');
+                link.download = `dashboard-${dadosAluno.nome || 'aluno'}-${new Date().toISOString().slice(0,10)}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                // Restaurar botão
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }).catch(error => {
+                console.error('Erro ao capturar:', error);
+                alert('Não foi possível salvar a imagem. Tente novamente.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep(1);
+            
+            // Configurar cores CSS personalizadas
+            const root = document.documentElement;
+            root.style.setProperty('--color-blue-500', '#3B82F6');
+            root.style.setProperty('--color-yellow-500', '#F59E0B');
+            root.style.setProperty('--color-purple-500', '#8B5CF6');
+            root.style.setProperty('--color-green-500', '#10B981');
+            root.style.setProperty('--color-red-500', '#EF4444');
+            root.style.setProperty('--color-gray-500', '#6B7280');
+            
+            // Adicionar evento ao botão de salvar
+            document.getElementById('saveDashboardBtn').addEventListener('click', salvarDashboard);
+        });
+    </script>
+</body>
+</html>

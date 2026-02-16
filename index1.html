@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URE Caieiras - SEDUC-SP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .seduc-blue {
+            background-color: #005CA9;
+        }
+        
+        .seduc-light-blue {
+            background-color: #E6F2FF;
+        }
+        
+        .seduc-yellow {
+            background-color: #FFD100;
+        }
+        
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .step-icon {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="seduc-blue text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                 <img src="https://i.ibb.co/dscRg9Ms/LOGO-URE-CAIEIRAS-2-1.png" alt="Logo URE-CAIEIRAS" class="h-16 mr-4">            
+                         <div class="hidden md:block border-l-2 border-white h-16"></div>
+                <div class="hidden md:block">
+                    <h1 class="text-xl font-bold">URE Caieiras</h1>
+                    <p class="text-sm">Unidade Regional de Ensino</p>
+                </div>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="font-medium hover:text-yellow-200">Início</a>
+                <a href="https://drive.google.com/file/d/1URYig9GikEEToqjFKYHbDk428kInG_jz/view?usp=sharing" class="font-medium hover:text-yellow-200">Resolução 39</a>
+                <a href="https://drive.google.com/drive/folders/1gY9s5JF-9o2jM5K-GGrtKG2O3I4lghYi?usp=drive_link" class="font-medium hover:text-yellow-200">Documentos</a>
+               
+            </nav>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden seduc-light-blue">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+                <a href="index.html" class="block py-2 px-4 seduc-blue text-white rounded">Início</a>
+                <a href="https://drive.google.com/file/d/1URYig9GikEEToqjFKYHbDk428kInG_jz/view?usp=sharing" class="block py-2 px-4 seduc-blue text-white rounded">Resolução 39</a>
+                <a href="https://drive.google.com/drive/folders/1gY9s5JF-9o2jM5K-GGrtKG2O3I4lghYi?usp=drive_link" class="block py-2 px-4 seduc-blue text-white rounded">Documentos</a>
+               
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Banner -->
+    <div class="hero-pattern seduc-blue text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Busca Ativa Escolar</h1>
+                <p class="text-lg md:text-xl mb-6">Implementação da Resolução SEDUC-SP nº 39/2023 na URE Caieiras</p>
+                <a href="#resolucao" class="inline-block bg-white text-blue-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-100 transition duration-300">Saiba mais</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- About Resolution 39 -->
+        <section id="resolucao" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="seduc-blue text-white px-6 py-4">
+                    <h2 class="text-2xl font-bold">Resolução SEDUC-SP nº 39/2023</h2>
+                    <p class="text-sm">Estabelecida em 5 de setembro de 2023</p>
+                </div>
+                <div class="p-6">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800 flex items-center">
+                            <div class="step-icon rounded-full seduc-blue text-white flex items-center justify-center mr-3">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            Objetivo
+                        </h3>
+                        <p class="text-gray-700 pl-16">Garantir o direito à educação, combater a evasão escolar e promover a permanência dos alunos na escola.</p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800 flex items-center">
+                            <div class="step-icon rounded-full seduc-blue text-white flex items-center justify-center mr-3">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            Quando iniciar a Busca Ativa?
+                        </h3>
+                        <p class="text-gray-700 pl-16">A partir de 3 faltas consecutivas não justificadas, a escola deve iniciar os procedimentos de Busca Ativa.</p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800 flex items-center">
+                            <div class="step-icon rounded-full seduc-blue text-white flex items-center justify-center mr-3">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            Procedimentos obrigatórios
+                        </h3>
+                        <ol class="list-decimal pl-16 text-gray-700 space-y-2">
+                            <li>Atualização cadastral bimestral dos alunos (telefone, endereço)</li>
+                            <li>Acompanhamento diário da frequência via Diário de Classe e Painel Aluno Presente</li>
+                            <li>Contato com responsáveis por telefone, e-mail, carta ou aplicativos</li>
+                            <li>Convocação para reunião com pais/responsáveis</li>
+                            <li>Notificações formais (mínimo de duas, com intervalo de 5 dias úteis)</li>
+                            <li>Ações pedagógicas para recuperação da aprendizagem</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800 flex items-center">
+                            <div class="step-icon rounded-full seduc-blue text-white flex items-center justify-center mr-3">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            Ações complementares
+                        </h3>
+                        <p class="text-gray-700 pl-16 mb-2">Se as faltas persistirem:</p>
+                        <ul class="list-disc pl-20 text-gray-700 space-y-2">
+                            <li>Acionar colegiados internos (APM, Grêmio, Conselho Escolar)</li>
+                            <li>Elaborar relatório pedagógico situacional</li>
+                            <li>Informar a Supervisão e Dirigente Regional de Ensino</li>
+                            <li>Acionar o Programa CONVIVA</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800 flex items-center">
+                            <div class="step-icon rounded-full seduc-blue text-white flex items-center justify-center mr-3">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            Encaminhamento à rede de proteção
+                        </h3>
+                        <p class="text-gray-700 pl-16 mb-2">Se o aluno atingir 10% de faltas não justificadas no bimestre, a escola deve:</p>
+                        <ul class="list-disc pl-20 text-gray-700 space-y-2">
+                            <li>Notificar o Conselho Tutelar e a Vara da Infância e Juventude</li>
+                            <li>Encaminhar documentos como ficha do aluno, relatórios, atas de reuniões e notificações</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800 flex items-center">
+                            <div class="step-icon rounded-full seduc-blue text-white flex items-center justify-center mr-3">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            Reintegração
+                        </h3>
+                        <p class="text-gray-700 pl-16">Se o aluno retornar, a escola deve elaborar um plano de acompanhamento individualizado para garantir sua permanência.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Documents Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">Documentos e Modelos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Document Card 1 -->
+                <div class="document-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="seduc-light-blue p-4 flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-file-alt text-blue-800 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-800">Ficha de acompanhamento</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-600 mb-4">Modelo padrão para registro do acompanhamento do aluno em situação de evasão.</p>
+                        <a href="https://drive.google.com/file/d/1N0wwncG_LwIGvFKx-CmfaB69zO8NSsfV/view?usp=drive_link" class="inline-block seduc-blue text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Baixar modelo</a>
+                    </div>
+                </div>
+                
+                <!-- Document Card 2 -->
+                <div class="document-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="seduc-light-blue p-4 flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-envelope text-blue-800 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-800">Carta aos pais</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-600 mb-4">Modelo de comunicação formal aos responsáveis sobre faltas escolares.</p>
+                        <a href="https://drive.google.com/file/d/1GcvqYlq4c9Z7qG22QbYBSSjiR_BiIvxE/view?usp=drive_link" class="inline-block seduc-blue text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Baixar modelo</a>
+                    </div>
+                </div>
+                
+                <!-- Document Card 3 -->
+                <div class="document-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="seduc-light-blue p-4 flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-handshake text-blue-800 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-800">Termo de compromisso</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-600 mb-4">Documento para formalizar o compromisso do estudante e responsáveis com a frequência escolar.</p>
+                        <a href="https://drive.google.com/file/d/1LN99tX7iyMMApRoHsSUAfB9WW4hlA92H/view?usp=drive_link" class="inline-block seduc-blue text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Baixar modelo</a>
+                    </div>
+                </div>
+                
+                <!-- Document Card 4 -->
+                <div class="document-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="seduc-light-blue p-4 flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-gavel text-blue-800 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-800">Ofício ao Conselho Tutelar</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-600 mb-4">Modelo para comunicação formal ao Conselho Tutelar em casos de evasão escolar.</p>
+                        <a href="https://drive.google.com/file/d/10AFyQXJ800mNVyPzLAvh8suZy8xCw4-1/view?usp=drive_link" class="inline-block seduc-blue text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Baixar modelo</a>
+                    </div>
+                </div>
+                
+                <!-- Document Card 5 -->
+                <div class="document-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="seduc-light-blue p-4 flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-clipboard-list text-blue-800 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-800">Relatório pedagógico</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-600 mb-4">Modelo para elaboração de relatório situacional do aluno.</p>
+                        <a href="https://drive.google.com/file/d/1_W7cCAk7GmG-THoe7E9NN6lxwBRNjeUl/view?usp=drive_link" class="inline-block seduc-blue text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Baixar modelo</a>
+                    </div>
+                </div>
+                
+                <!-- Document Card 6 -->
+                <div class="document-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="seduc-light-blue p-4 flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-file-pdf text-blue-800 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-800">Resolução completa</h3>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-600 mb-4">Texto integral da Resolução SEDUC-SP nº 39/2023.</p>
+                        <a href="https://drive.google.com/file/d/1URYig9GikEEToqjFKYHbDk428kInG_jz/view?usp=drive_link" class="inline-block seduc-blue text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Baixar resolução</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+       
+    </main>
+    
+    <!-- Footer -->
+    <footer class="seduc-blue text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">URE Caieiras</h3>
+                    <p class="text-sm">Unidade Regional de Ensino vinculada à Secretaria da Educação do Estado de São Paulo, responsável pela gestão das escolas estaduais na região de Caieiras.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Links rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-200">Portal SEDUC-SP</a></li>
+                        <li><a href="#" class="hover:text-yellow-200">Painel do Professor</a></li>
+                        <li><a href="#" class="hover:text-yellow-200">Secretaria Escolar Digital</a></li>
+                        <li><a href="#" class="hover:text-yellow-200">Programa CONVIVA</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Redes sociais</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-yellow-200 text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white hover:text-yellow-200 text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-yellow-200 text-xl"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-white hover:text-yellow-200 text-xl"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 mt-8 pt-6 text-sm text-center">
+                <p>© 2025 Unidade Regional de Ensino de Caieiras - Secretaria da Educação do Estado de São Paulo</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
+
