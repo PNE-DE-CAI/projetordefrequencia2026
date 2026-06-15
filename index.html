@@ -2,14 +2,13 @@
 <html lang="pt-BR">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJEHT4H5MR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LJEHT4H5MR');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJEHT4H5MR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LJEHT4H5MR');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URE Caieiras 2026 - Projetor de Frequência Escolar</title>
@@ -179,7 +178,7 @@
                 <div class="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-md text-sm font-bold">2026</div>
                 <h2 class="text-2xl font-bold mb-2">Projetor de Frequência Escolar 2026</h2>
                 <p class="text-sm">Ferramenta para cálculo da frequência necessária para alcançar a meta anual de IFA das escolas.</p>
-                <p class="text-sm">META GLOBAL DE REFERÊNCIA PARA O IFA É DE <span class="font-bold text-yellow-300">85%</span> PARA AS NOSSOS ESCOLAS.</p>
+                <p class="text-sm">META GLOBAL DE REFERÊNCIA PARA O IFA É DE <span class="font-bold text-yellow-300">84%</span> PARA AS NOSSAS ESCOLAS.</p>
             </div>
             
             <div class="p-6">
@@ -188,31 +187,13 @@
                     <div class="mb-8">
                         <h3 class="text-xl font-semibold text-slate-800 mb-4">Calculadora de Projeção 2026</h3>
                         
-                        <!-- Novo Campo: Seleção de Perfil da Unidade -->
-                        <div class="mb-4">
-                            <label for="perfilUnidadeSelect" class="block text-sm font-medium text-gray-700 mb-1">
-                                Perfil da Unidade Escolar:
-                                <span class="tooltip">
-                                    <i class="fas fa-info-circle text-red-600 ml-1"></i>
-                                    <span class="tooltiptext">Selecione o perfil da sua unidade escolar para ajustar o cálculo às semanas específicas do seu calendário letivo e meta de IFA correspondente.</span>
-                                </span>
-                            </label>
-                            <select id="perfilUnidadeSelect" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600 bg-white">
-                                <option value="regular" selected>Unidade Regular (Tempo Parcial)</option>
-                                <option value="pei7h">PEI de 7 horas</option>
-                                <option value="pei9h">PEI de 9 horas</option>
-                                <option value="regularAnosFinais">Unidade Regular com Anos Iniciais</option>
-                            </select>
-                        </div>
-                        
                         <!-- Campo para o número de semanas passadas -->
                         <div class="mb-4">
                             <label for="semanasPassadasInput" class="block text-sm font-medium text-gray-700 mb-1">
                                 Número de Semanas Passadas:
                                 <span class="tooltip">
                                     <i class="fas fa-info-circle text-red-600 ml-1"></i>
-                                    <span class="tooltiptext">Insira o número de semanas já transcorridas do ano letivo (por exemplo, 05).</span>
+                                    <span class="tooltiptext">Insira o número de semanas já transcorridas do ano letivo (por exemplo, 05 para cinco semanas).</span>
                                 </span>
                             </label>
                             <input type="number" id="semanasPassadasInput" placeholder="Ex: 05" value="05" step="1"
@@ -225,29 +206,26 @@
                                 Média de Frequência Acumulada (%):
                                 <span class="tooltip">
                                     <i class="fas fa-info-circle text-red-600 ml-1"></i>
-                                    <span class="tooltiptext">A partir da sua <span class="font-bold text-red-700">5° semana</span>, insira a média de frequência percentual acumulada até a semana mais recente.</span>
+                                    <span class="tooltiptext">A partir da sua <span class="font-bold text-red-700">semana</span>, insira a média de frequência percentual acumulada até a semana mais recente.</span>
                                 </span>
                             </label>
-                            <input type="number" id="mediaAcumuladaInput" placeholder="Ex: 85.0" step="0.1"
+                            <input type="number" id="mediaAcumuladaInput" placeholder="Ex: 84.0" step="0.1"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
                         </div>
                         
-                        <!-- NOVO CAMPO: IFA da Escola (agora com valor padrão baseado no perfil) -->
+                        <!-- Campo IFA da Escola (valor padrão 84.0%) -->
                         <div class="mb-4">
                             <label for="ifaEscolaInput" class="block text-sm font-medium text-gray-700 mb-1">
                                 IFA da Escola (%):
                                 <span class="tooltip">
                                     <i class="fas fa-info-circle text-red-600 ml-1"></i>
-                                    <span class="tooltiptext">(SED) ACESSO >> <b>Início
-Recursos Humanos
-Bonificação por Resultados
-Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
+                                    <span class="tooltiptext">(SED) ACESSO >> Início > Recursos Humanos > Bonificação por Resultados > Metas - Por Unidade 26-27. A meta que sua escola precisa alcançar.</span>
                                 </span>
                                 <span id="ifaPadraoInfo" class="text-sm text-green-600 font-medium ml-2">
-                                    <i class="fas fa-info-circle"></i> Meta padrão: 85.0%
+                                    <i class="fas fa-info-circle"></i> Meta padrão: 84.0%
                                 </span>
                             </label>
-                            <input type="number" id="ifaEscolaInput" placeholder="Ex: 85.0" step="0.1" value="85.0"
+                            <input type="number" id="ifaEscolaInput" placeholder="Ex: 84.0" step="0.1" value="84.0"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-600 focus:border-red-600">
                         </div>
 
@@ -257,36 +235,36 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
                         </button>
                         <div id="resultado" class="mt-6 p-4 sed-light-red border-2 border-red-600 rounded-md text-center text-lg font-semibold">
                             <div class="text-red-700 font-bold mb-2"><i class="fas fa-chart-line mr-2"></i> PROJEÇÃO 2026</div>
-                            A média para as próximas semanas não podera ser inferior a: --
+                            A média para as próximas semanas não poderá ser inferior a: --
                         </div>
                     </div>
                     
-                    <!-- Explicação atualizada dinamicamente -->
+                    <!-- Explicação atualizada (fixa, sem perfis) -->
                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
                         <div class="flex items-center mb-4">
                             <div class="bg-red-600 text-white p-2 rounded-md mr-3">
-                                <i class="fas fa-school"></i>
+                                <i class="fas fa-chalkboard-user"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-semibold text-slate-800">Perfil Selecionado: <span id="perfilNome" class="text-red-700">Unidade Regular (Tempo Parcial)</span></h3>
+                                <h3 class="text-xl font-semibold text-slate-800">Calendário Padrão 2026</h3>
                                 <p class="text-sm text-gray-600 mt-1">
-                                    Meta de IFA padrão: <span id="ifaPadraoValor" class="font-bold text-green-700">85.0%</span>
+                                    Meta de referência IFA: <span class="font-bold text-green-700">84.0%</span>
                                     <span class="tooltip ml-1">
                                         <i class="fas fa-info-circle text-blue-500"></i>
-                                        <span class="tooltiptext">Esta é a meta padrão para este perfil. Você pode ajustar manualmente no campo acima se sua escola tiver uma meta específica diferente.</span>
+                                        <span class="tooltiptext">Meta padrão estabelecida para o ano letivo de 2026. Você pode ajustar manualmente no campo IFA da Escola se sua unidade possuir meta específica.</span>
                                     </span>
                                 </p>
                             </div>
                         </div>
                         
                         <div id="perfilDescricao" class="mb-4 p-3 bg-red-50 border-l-4 border-red-600 rounded">
-                            <p class="text-gray-700"><i class="fas fa-info-circle text-red-600 mr-2"></i>Calendário padrão com 45 semanas letivas para análise do Escola Total. Meta de IFA: 85.0%</p>
+                            <p class="text-gray-700"><i class="fas fa-calendar-alt text-red-600 mr-2"></i>Calendário padrão com 43 semanas letivas para análise do Escola Total. Meta de IFA referência: 84.0%</p>
                         </div>
                         
                         <h3 class="text-xl font-semibold text-slate-800 mb-4">Entendendo a Meta de Frequência para o Ano Letivo 2026</h3>
                         <p class="text-gray-700 mb-4">
                             Prezados gestores,<br>
-                            O cálculo abaixo é uma ferramenta essencial para o nosso trabalho de prevenção à evasão escolar, como destaca a Resolução SEDUC 39/2023. Manter a frequência dos alunos é uma de nossas prioridades e, para isso, é fundamental que a equipe gestora entenda como e por why chegamos à meta de frequência necessária para as próximas semanas. Para o ano de <span class="font-bold text-red-700">2026</span>, levamos em consideração <span id="totalSemanasInfo">45 semanas</span> em que são consideradas da 5° semana até a 45° semana, assim projetando uma frequência mínima esperada para a meta de <i>IFA</i> da escola.
+                            O cálculo abaixo é uma ferramenta essencial para o nosso trabalho de prevenção à evasão escolar, como destaca a Resolução SEDUC 39/2023. Manter a frequência dos alunos é uma de nossas prioridades e, para isso, é fundamental que a equipe gestora entenda como e por que chegamos à meta de frequência necessária para as próximas semanas. Para o ano de <span class="font-bold text-red-700">2026</span>, levamos em consideração <span id="totalSemanasInfo">43 semanas</span> letivas, projetando a frequência mínima esperada para a meta de <i>IFA</i> da escola.
                         </p>
                         
                         <div class="space-y-6">
@@ -298,7 +276,7 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
                                 </div>
                                 <div class="pl-11">
                                     <p class="text-gray-700 mb-2">
-                                        Para o ano letivo de <span class="font-bold text-red-700">2026</span>, temos <span id="totalSemanasTexto">45 semanas</span> para análise no <span class="font-bold text-red-700">Escola Total</span>. Nossa meta de frequência média para todo o ano é de <span id="ifaEscolaValor1">85.0</span>%. Para saber o "total de frequência" que precisamos ter ao final do ano, multiplicamos a meta pelo número total de semanas:
+                                        Para o ano letivo de <span class="font-bold text-red-700">2026</span>, temos <span id="totalSemanasTexto">43 semanas</span> para análise no <span class="font-bold text-red-700">Escola Total</span>. Nossa meta de frequência média para todo o ano é de <span id="ifaEscolaValor1">84.0</span>%. Para saber o "total de frequência" que precisamos ter ao final do ano, multiplicamos a meta pelo número total de semanas:
                                     </p>
                                     <div class="bg-gradient-to-r from-blue-50 to-red-50 p-3 rounded-md border-l-4 border-red-600 mb-2">
                                         <p class="font-mono text-blue-800"><span id="metaTotalCalc">--</span></p>
@@ -371,7 +349,7 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
                         <div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-red-50 border-l-4 border-red-600 rounded-md">
                             <h4 class="font-semibold text-slate-800 mb-2"><i class="fas fa-bullseye text-red-600 mr-2"></i>Conclusão 2026:</h4>
                             <p class="font-bold text-red-700">
-                                Para que nossa escola alcance o seu IFA de <span id="ifaEscolaValor2">85.0</span>%, precisaremos de uma frequência média de <span id="conclusaoMeta">--</span>% nas próximas <span id="conclusaoSemanasFuturas">--</span> semanas.
+                                Para que nossa escola alcance o seu IFA de <span id="ifaEscolaValor2">84.0</span>%, precisaremos de uma frequência média de <span id="conclusaoMeta">--</span>% nas próximas <span id="conclusaoSemanasFuturas">--</span> semanas.
                                 <br><br>
                                 <span id="statusIFA"></span>
                             </p>
@@ -413,73 +391,30 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
                 <p>© 2026 Unidade Regional de Ensino de Caieiras. Todos os direitos reservados.</p>
-                <p class="mt-2 text-red-300">Ano Letivo 2026 - Calculadora de Projeção de Frequência</p>
-                <p class="mt-1 text-sm text-gray-500">Metas de IFA: Regular = 82% | PEI 7h = 90% | PEI 9h = 90.5% | Anos Finais = 82%</p>
+                <p class="mt-2 text-red-300">Ano Letivo 2026 - Calculadora de Projeção de Frequência | Meta de referência IFA: 84%</p>
+                <p class="mt-1 text-sm text-gray-500">Calendário padrão de 43 semanas letivas. A meta pode ser ajustada manualmente conforme necessidade da unidade escolar.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Configurações dos perfis com diferentes metas de IFA
-        const perfis = {
-            regular: {
-                nome: "Unidade Regular (Tempo Parcial)",
-                totalSemanas: 45,
-                ifaPadrao: 85.0,
-                descricao: "Calendário padrão com 45 semanas letivas para análise do Escola Total. Meta de IFA: 85.0%"
-            },
-            pei7h: {
-                nome: "PEI de 7 horas",
-                totalSemanas: 45,
-                ifaPadrao: 90.0,
-                descricao: "Programa de Ensino Integral de 7 horas com 45 semanas letivas para análise. Meta de IFA: 90.0%"
-            },
-            pei9h: {
-                nome: "PEI de 9 horas",
-                totalSemanas: 45,
-                ifaPadrao: 90.5,
-                descricao: "Programa de Ensino Integral de 9 horas com 45 semanas letivas para análise. Meta de IFA: 90.5%"
-            },
-            regularAnosFinais: {
-                nome: "Unidade Regular com Anos Finais",
-                totalSemanas: 45,
-                ifaPadrao: 85.5,
-                descricao: "Unidade regular com anos finais, totalizando 45 semanas letivas para análise. Meta de IFA: 85.5%"
+        // Configurações fixas: total de semanas e meta padrão de referência
+        const TOTAL_SEMANAS = 43;
+        const META_PADRAO_IFA = 84.0;
+
+        // Atualiza elementos estáticos com informações fixas
+        function atualizarInfoPadrao() {
+            document.getElementById('totalSemanasInfo').textContent = `${TOTAL_SEMANAS} semanas`;
+            document.getElementById('totalSemanasTexto').textContent = `${TOTAL_SEMANAS} semanas`;
+            document.getElementById('ifaEscolaValor1').innerText = META_PADRAO_IFA.toFixed(1);
+            document.getElementById('ifaEscolaValor2').innerText = META_PADRAO_IFA.toFixed(1);
+            document.getElementById('ifaPadraoInfo').innerHTML = `<i class="fas fa-info-circle"></i> Meta padrão: ${META_PADRAO_IFA.toFixed(1)}%`;
+            // Sincroniza o campo de IFA com o valor padrão caso ele esteja vazio ou seja NaN
+            const ifaInput = document.getElementById('ifaEscolaInput');
+            if (!ifaInput.value || isNaN(parseFloat(ifaInput.value))) {
+                ifaInput.value = META_PADRAO_IFA.toFixed(1);
             }
-        };
-
-        // Função para atualizar o valor padrão do IFA quando o perfil é alterado
-        function atualizarIFAPadrao() {
-            const perfilSelecionado = document.getElementById('perfilUnidadeSelect').value;
-            const perfil = perfis[perfilSelecionado];
-            
-            // Atualiza o campo de IFA com o valor padrão do perfil
-            document.getElementById('ifaEscolaInput').value = perfil.ifaPadrao.toFixed(1);
-            
-            // Atualiza as informações na interface
-            document.getElementById('perfilNome').textContent = perfil.nome;
-            document.getElementById('ifaPadraoValor').textContent = perfil.ifaPadrao.toFixed(1) + '%';
-            document.getElementById('ifaPadraoInfo').innerHTML = 
-                `<i class="fas fa-info-circle"></i> Meta padrão: ${perfil.ifaPadrao.toFixed(1)}%`;
-            
-            document.getElementById('perfilDescricao').innerHTML = 
-                `<p class="text-gray-700"><i class="fas fa-info-circle text-red-600 mr-2"></i>${perfil.descricao}</p>`;
-            
-            document.getElementById('totalSemanasInfo').textContent = `${perfil.totalSemanas} semanas`;
-            document.getElementById('totalSemanasTexto').textContent = `${perfil.totalSemanas} semanas`;
-            
-            // Atualiza também os valores estáticos na explicação
-            document.getElementById('ifaEscolaValor1').innerText = perfil.ifaPadrao.toFixed(1);
-            document.getElementById('ifaEscolaValor2').innerText = perfil.ifaPadrao.toFixed(1);
         }
-
-        // Atualizar informações do perfil selecionado quando o select é alterado
-        document.getElementById('perfilUnidadeSelect').addEventListener('change', atualizarIFAPadrao);
-
-        // Inicializar com perfil padrão
-        document.addEventListener('DOMContentLoaded', function() {
-            atualizarIFAPadrao();
-        });
 
         // Função para mostrar a caixa de mensagem personalizada
         function showMessageBox(message) {
@@ -489,72 +424,74 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
             messageBox.classList.remove('hidden');
         }
 
-        // Função para esconder a caixa de mensagem
         function hideMessageBox() {
             const messageBox = document.getElementById('messageBox');
             messageBox.classList.add('hidden');
         }
 
-        // Função para calcular e exibir a projeção de frequência
+        // Função principal de cálculo
         function calcularProjecao() {
-            // Obtém os valores dos campos de input
+            // Obtém os valores dos campos
             const semanasPassadasInput = document.getElementById('semanasPassadasInput');
             const mediaAcumuladaInput = document.getElementById('mediaAcumuladaInput');
             const ifaEscolaInput = document.getElementById('ifaEscolaInput');
-            const perfilSelecionado = document.getElementById('perfilUnidadeSelect').value;
 
-            // Converte os valores para números
             const semanasPassadas = parseFloat(semanasPassadasInput.value);
             const mediaAcumuladaValue = parseFloat(mediaAcumuladaInput.value);
-            const ifaEscolaValue = parseFloat(ifaEscolaInput.value);
+            let ifaEscolaValue = parseFloat(ifaEscolaInput.value);
 
-            // Obtém configurações do perfil selecionado
-            const perfil = perfis[perfilSelecionado];
-            const totalSemanas = perfil.totalSemanas;
-
-            // Valida os inputs
-            if (isNaN(semanasPassadas) || isNaN(mediaAcumuladaValue) || isNaN(ifaEscolaValue) || semanasPassadas <= 0 || semanasPassadas >= totalSemanas) {
-                showMessageBox('Por favor, insira valores válidos para todos os campos.');
+            // Validação de campos obrigatórios
+            if (isNaN(semanasPassadas) || isNaN(mediaAcumuladaValue) || isNaN(ifaEscolaValue)) {
+                showMessageBox('Por favor, preencha todos os campos com valores válidos.');
                 return;
             }
             
-            // Valida se a média acumulada está entre 0 e 100%
+            if (semanasPassadas <= 0 || semanasPassadas >= TOTAL_SEMANAS) {
+                showMessageBox(`O número de semanas passadas deve ser maior que 0 e menor que ${TOTAL_SEMANAS}.`);
+                return;
+            }
+            
             if (mediaAcumuladaValue < 0 || mediaAcumuladaValue > 100) {
                 showMessageBox('A média de frequência acumulada deve estar entre 0% e 100%.');
                 return;
             }
             
-            // Valida se o IFA está entre 0 e 100%
             if (ifaEscolaValue < 0 || ifaEscolaValue > 100) {
                 showMessageBox('O IFA da escola deve estar entre 0% e 100%.');
                 return;
             }
+            
+            // Se o IFA estiver vazio ou inválido, usar meta padrão
+            if (isNaN(ifaEscolaValue)) {
+                ifaEscolaValue = META_PADRAO_IFA;
+                ifaEscolaInput.value = META_PADRAO_IFA;
+            }
 
-            // Converte IFA para decimal
+            const totalSemanas = TOTAL_SEMANAS;
             const mediaMetaAnual = ifaEscolaValue / 100;
-
-            // Calcula as semanas futuras dinamicamente
             const semanasFuturas = totalSemanas - semanasPassadas;
             const mediaAcumuladaDecimal = mediaAcumuladaValue / 100;
             
-            // Cálculo da projeção
+            // Cálculos fundamentais
             const somaTotalNecessaria = mediaMetaAnual * totalSemanas;
             const somaPassada = mediaAcumuladaDecimal * semanasPassadas;
             const somaFuturaNecessaria = somaTotalNecessaria - somaPassada;
             const mediaFuturaDecimal = somaFuturaNecessaria / semanasFuturas;
-            const mediaFuturaPorcentagem = (mediaFuturaDecimal * 100).toFixed(2);
+            let mediaFuturaPorcentagem = (mediaFuturaDecimal * 100).toFixed(2);
             
-            // Animação para o resultado
+            // Evita valores negativos ou excessivos para exibição, mas mantém cálculo lógico
+            if (mediaFuturaDecimal > 1) mediaFuturaPorcentagem = (mediaFuturaDecimal * 100).toFixed(2);
+            
+            // Animação no resultado
             const resultadoElement = document.getElementById('resultado');
             resultadoElement.classList.remove('animate-pulse');
-            void resultadoElement.offsetWidth; // Dispara o reflow para reiniciar a animação
+            void resultadoElement.offsetWidth;
             resultadoElement.classList.add('animate-pulse');
             
-            // Determina se está abaixo ou acima da meta
+            // Situação atual em relação à meta
             let statusMetaIFA = '';
             let corStatusMeta = '';
             let iconStatusMeta = '';
-
             if (mediaAcumuladaValue < ifaEscolaValue) {
                 statusMetaIFA = 'ABAIXO DA META';
                 corStatusMeta = 'text-red-700';
@@ -568,25 +505,23 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
                 corStatusMeta = 'text-yellow-700';
                 iconStatusMeta = 'fa-equals';
             }
-
-            // Determina a cor do resultado baseado na dificuldade
+            
+            // Cor da projeção
             let corDestaque = "text-red-700";
-            if (mediaFuturaPorcentagem <= 95) {
-                corDestaque = "text-green-700";
-            } else if (mediaFuturaPorcentagem <= 100) {
-                corDestaque = "text-yellow-700";
-            }
-
-            // Atualiza o texto do resultado principal
+            const mediaNum = parseFloat(mediaFuturaPorcentagem);
+            if (mediaNum <= 95) corDestaque = "text-green-700";
+            else if (mediaNum <= 100) corDestaque = "text-yellow-700";
+            
+            // Monta o resultado principal
             resultadoElement.innerHTML = `
-                <div class="text-red-700 font-bold mb-2"><i class="fas fa-chart-line mr-2"></i> PROJEÇÃO 2026 - ${perfil.nome.toUpperCase()}</div>
+                <div class="text-red-700 font-bold mb-2"><i class="fas fa-chart-line mr-2"></i> PROJEÇÃO 2026</div>
                 
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 p-3 bg-gray-50 rounded-md">
                     <div class="mb-2 md:mb-0">
                         <span class="text-gray-700 font-medium">Meta de IFA da escola:</span>
-                        <span class="font-bold ${ifaEscolaValue >= perfil.ifaPadrao ? 'text-green-700' : 'text-yellow-700'} ml-2">${ifaEscolaValue.toFixed(1)}%</span>
-                        ${ifaEscolaValue !== perfil.ifaPadrao ? 
-                            `<span class="text-sm text-gray-600 ml-2">(padrão: ${perfil.ifaPadrao.toFixed(1)}%)</span>` : 
+                        <span class="font-bold ${ifaEscolaValue >= META_PADRAO_IFA ? 'text-green-700' : 'text-yellow-700'} ml-2">${ifaEscolaValue.toFixed(1)}%</span>
+                        ${ifaEscolaValue !== META_PADRAO_IFA ? 
+                            `<span class="text-sm text-gray-600 ml-2">(referência: ${META_PADRAO_IFA.toFixed(1)}%)</span>` : 
                             `<span class="ifa-badge ml-2">META PADRÃO</span>`
                         }
                     </div>
@@ -622,45 +557,44 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
                 </div>
             `;
             
-            // Atualiza os valores dinâmicos na seção de explicação
+            // Atualiza todos os campos dinâmicos da explicação detalhada
             document.getElementById('ifaEscolaValor1').innerText = ifaEscolaValue.toFixed(1);
             document.getElementById('ifaEscolaValor2').innerText = ifaEscolaValue.toFixed(1);
             document.getElementById('semanasPassadasValor').innerText = semanasPassadas;
             document.getElementById('mediaAcumuladaValor').innerText = mediaAcumuladaValue.toFixed(1);
             document.getElementById('totalSemanasValor').innerText = totalSemanas;
             
-            document.getElementById('metaTotalCalc').innerText = `${mediaMetaAnual.toFixed(3)} x ${totalSemanas} semanas = ${somaTotalNecessaria.toFixed(3)}`;
-            document.getElementById('metaTotalValor').innerText = somaTotalNecessaria.toFixed(3);
+            document.getElementById('metaTotalCalc').innerHTML = `${mediaMetaAnual.toFixed(3)} x ${totalSemanas} semanas = ${somaTotalNecessaria.toFixed(3)}`;
+            document.getElementById('metaTotalValor').innerHTML = somaTotalNecessaria.toFixed(3);
             
-            document.getElementById('conquistadoCalc').innerText = `${mediaAcumuladaDecimal.toFixed(3)} x ${semanasPassadas} semanas = ${somaPassada.toFixed(3)}`;
-            document.getElementById('conquistadoValor').innerText = somaPassada.toFixed(3);
+            document.getElementById('conquistadoCalc').innerHTML = `${mediaAcumuladaDecimal.toFixed(3)} x ${semanasPassadas} semanas = ${somaPassada.toFixed(3)}`;
+            document.getElementById('conquistadoValor').innerHTML = somaPassada.toFixed(3);
             
-            document.getElementById('desafioCalc').innerText = `${somaTotalNecessaria.toFixed(3)} (total necessário) - ${somaPassada.toFixed(3)} (total acumulado) = ${somaFuturaNecessaria.toFixed(3)}`;
-            document.getElementById('desafioValor').innerText = somaFuturaNecessaria.toFixed(3);
-            document.getElementById('semanasFuturasValor').innerText = semanasFuturas;
+            document.getElementById('desafioCalc').innerHTML = `${somaTotalNecessaria.toFixed(3)} (total necessário) - ${somaPassada.toFixed(3)} (total acumulado) = ${somaFuturaNecessaria.toFixed(3)}`;
+            document.getElementById('desafioValor').innerHTML = somaFuturaNecessaria.toFixed(3);
+            document.getElementById('semanasFuturasValor').innerHTML = semanasFuturas;
             
-            document.getElementById('semanasRestantesValor').innerText = semanasFuturas;
-            document.getElementById('estrategiaCalc').innerText = `${somaFuturaNecessaria.toFixed(3)} (total que falta) ÷ ${semanasFuturas} semanas = ${mediaFuturaDecimal.toFixed(4)}`;
-            document.getElementById('metaSemanalValor').innerText = `${mediaFuturaPorcentagem}%`;
-
-            document.getElementById('conclusaoMeta').innerText = `${mediaFuturaPorcentagem}%`;
-            document.getElementById('conclusaoSemanasFuturas').innerText = semanasFuturas;
-
-            // Lógica para determinar o status da escola em relação ao IFA
+            document.getElementById('semanasRestantesValor').innerHTML = semanasFuturas;
+            document.getElementById('estrategiaCalc').innerHTML = `${somaFuturaNecessaria.toFixed(3)} (total que falta) ÷ ${semanasFuturas} semanas = ${mediaFuturaDecimal.toFixed(4)}`;
+            document.getElementById('metaSemanalValor').innerHTML = `${mediaFuturaPorcentagem}%`;
+            
+            document.getElementById('conclusaoMeta').innerHTML = `${mediaFuturaPorcentagem}%`;
+            document.getElementById('conclusaoSemanasFuturas').innerHTML = semanasFuturas;
+            
+            // Texto de status personalizado
             let statusText = '';
             let statusClass = '';
             let statusIcon = '';
-            
-            if (mediaFuturaDecimal > 1) { // Acima de 100% de frequência necessária = impossível
-                statusText = `Com a média acumulada atual de ${mediaAcumuladaValue.toFixed(1)}%, é <span class="font-bold">MATEMATICAMENTE IMPOSSÍVEL</span> alcançar o IFA de ${ifaEscolaValue.toFixed(1)}%. A escola precisa de uma média de ${mediaFuturaPorcentagem}% nas próximas semanas, o que é impossível (acima de 100%).`;
+            if (mediaFuturaDecimal > 1) {
+                statusText = `Com a média acumulada atual de ${mediaAcumuladaValue.toFixed(1)}%, é <span class="font-bold">MATEMATICAMENTE IMPOSSÍVEL</span> alcançar o IFA de ${ifaEscolaValue.toFixed(1)}%. A escola precisaria de uma média de ${mediaFuturaPorcentagem} nas próximas semanas, o que ultrapassa 100%.`;
                 statusClass = 'text-red-700 font-bold';
                 statusIcon = '<i class="fas fa-exclamation-triangle mr-2"></i>';
-            } else if (mediaFuturaPorcentagem > 95) {
+            } else if (parseFloat(mediaFuturaPorcentagem) > 95) {
                 statusText = `Atenção! Para alcançar o IFA de ${ifaEscolaValue.toFixed(1)}%, a escola precisará manter uma média de ${mediaFuturaPorcentagem}% nas próximas ${semanasFuturas} semanas. Esta é uma meta desafiadora que exigirá esforços concentrados.`;
                 statusClass = 'text-yellow-700';
                 statusIcon = '<i class="fas fa-exclamation-circle mr-2"></i>';
             } else if (mediaAcumuladaValue < ifaEscolaValue) {
-                statusText = `A média acumulada da escola (${mediaAcumuladaValue.toFixed(1)}%) está abaixo do IFA desejado de ${ifaEscolaValue.toFixed(1)}%. Para recuperar, será necessário uma média de ${mediaFuturaPorcentagem}% nas próximas ${semanasFuturas} semanas.`;
+                statusText = `A média acumulada da escola (${mediaAcumuladaValue.toFixed(1)}%) está abaixo do IFA desejado de ${ifaEscolaValue.toFixed(1)}%. Para recuperar, será necessária uma média de ${mediaFuturaPorcentagem}% nas próximas ${semanasFuturas} semanas.`;
                 statusClass = 'text-yellow-700';
                 statusIcon = '<i class="fas fa-clock mr-2"></i>';
             } else if (mediaAcumuladaValue >= ifaEscolaValue) {
@@ -668,23 +602,16 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
                 statusClass = 'text-green-700';
                 statusIcon = '<i class="fas fa-check-circle mr-2"></i>';
             }
-
-            document.getElementById('statusIFA').innerHTML = 
-                `<span class="${statusClass}">${statusIcon}${statusText}</span>`;
+            document.getElementById('statusIFA').innerHTML = `<span class="${statusClass}">${statusIcon}${statusText}</span>`;
             
-            // Adiciona confetes se a meta for alcançável (<= 100%) e se a média atual já atingiu a meta
+            // Confete se a meta for alcançável e já estiver no ou acima da meta
             if (mediaFuturaDecimal <= 1 && mediaAcumuladaValue >= ifaEscolaValue) {
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#005CA9', '#CC0000', '#FFD100', '#003366', '#FFFFFF']
-                });
+                confettiEffect();
             }
         }
         
-        // Função de confete simples
-        function confetti({ particleCount, spread, origin, colors }) {
+        // Função de confetes simples
+        function confettiEffect() {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
@@ -697,57 +624,56 @@ Metas - Por Unidade 26-27</b> Que a sua escola precisa alcançar.</span>
             document.body.appendChild(canvas);
             
             const particles = [];
-            for (let i = 0; i < particleCount; i++) {
+            const colors = ['#005CA9', '#CC0000', '#FFD100', '#003366', '#FFFFFF'];
+            for (let i = 0; i < 120; i++) {
                 particles.push({
-                    x: origin.x * canvas.width,
-                    y: origin.y * canvas.height,
-                    size: Math.random() * 5 + 2,
+                    x: Math.random() * canvas.width,
+                    y: canvas.height * 0.6,
+                    size: Math.random() * 6 + 2,
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    speedX: (Math.random() - 0.5) * spread,
-                    speedY: (Math.random() * 3 + 2),
+                    speedX: (Math.random() - 0.5) * 6,
+                    speedY: (Math.random() * 4 + 2),
                     rotation: Math.random() * 360,
-                    rotationSpeed: (Math.random() - 0.5) * 10
+                    rotationSpeed: (Math.random() - 0.5) * 12
                 });
             }
             
             let animationId;
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                for (let i = 0; i < particles.length; i++) {
-                    const p = particles[i];
-                    
+                for (let p of particles) {
                     ctx.save();
                     ctx.translate(p.x, p.y);
                     ctx.rotate(p.rotation * Math.PI / 180);
-                    
                     ctx.fillStyle = p.color;
-                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                    
+                    ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
                     ctx.restore();
                     
                     p.x += p.speedX;
                     p.y += p.speedY;
                     p.rotation += p.rotationSpeed;
-                    
-                    // Reset particle when it goes out of screen
                     if (p.y > canvas.height) {
-                        p.y = origin.y * canvas.height;
-                        p.x = origin.x * canvas.width;
+                        p.y = canvas.height * 0.6;
+                        p.x = Math.random() * canvas.width;
                     }
                 }
-                
                 animationId = requestAnimationFrame(animate);
             }
-            
             animate();
-            
-            // Remove canvas after animation
             setTimeout(() => {
                 cancelAnimationFrame(animationId);
                 canvas.remove();
-            }, 3000);
+            }, 2800);
         }
+        
+        // Inicialização: definir informações fixas e valores padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarInfoPadrao();
+            // Definir valores iniciais amigáveis
+            document.getElementById('semanasPassadasInput').value = "0";
+            document.getElementById('mediaAcumuladaInput').value = "";
+            document.getElementById('ifaEscolaInput').value = META_PADRAO_IFA.toFixed(1);
+        });
     </script>
 </body>
 </html>
